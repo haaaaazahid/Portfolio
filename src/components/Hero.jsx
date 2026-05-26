@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import profile from "../assets/profile.jpg";
 
 function Hero() {
@@ -39,12 +40,12 @@ function Hero() {
       </div>
 
       <div className="flex gap-3 mb-12">
-        <a href="/projects" className="bg-violet-600 hover:bg-violet-700 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center gap-2">
+        <Link to="/projects" className="bg-violet-600 hover:bg-violet-700 text-white px-6 py-3 rounded-xl text-sm font-semibold transition flex items-center gap-2">
           ▶ View Projects
-        </a>
-        <a href="/contact" className="border border-violet-500 text-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950 px-6 py-3 rounded-xl text-sm font-semibold transition">
+        </Link>
+        <Link to="/contact" className="border border-violet-500 text-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950 px-6 py-3 rounded-xl text-sm font-semibold transition">
           Contact Me
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-3 gap-4 w-full max-w-sm">
