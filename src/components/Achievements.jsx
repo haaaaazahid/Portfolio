@@ -9,7 +9,7 @@ const achievements = [
     subtitle: "NCC — Senior Division",
     tag: "Leadership",
     tagColor: "bg-emerald-100 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400",
-    desc: "Highest student rank in the NCC unit. Led cadets in drills, camps, and national-level events.",
+    desc: "Officer rank in the NCC unit. Led cadets in drills, camps, and national-level events.",
     img: nccFlag,
   },
   {
