@@ -1,21 +1,15 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html {
-  scroll-behavior: smooth;
-}
-
+html { scroll-behavior: smooth; }
 body {
-  background: #ffffff;
-  color: #0f172a;
+  margin: 0; padding: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #f8f7ff;
+  color: #12062a;
 }
-
-.dark body {
-  background: #0a192f;
-  color: white;
-}
-
-* {
-  transition: background-color 0.25s ease, border-color 0.2s ease, color 0.15s ease;
-}
+.dark body { background: #08051a; color: #ede9fe; }
+* { transition: background-color 0.25s ease, border-color 0.2s ease, color 0.15s ease; }
+.mono { font-family: 'JetBrains Mono', monospace; }

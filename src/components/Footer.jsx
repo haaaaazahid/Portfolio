@@ -1,19 +1,10 @@
-function Footer(){
-
-return(
-
-<footer className="py-10 text-center text-gray-500 mt-20">
-
-© 2026 MOHD ZAHID SHAIKH
-
-<br/>
-
-Built with React + Tailwind + Framer Motion
-
-</footer>
-
-)
-
+function Footer() {
+  return (
+    <footer className="py-8 text-center border-t border-slate-200 dark:border-slate-800 mt-10">
+      <p className="text-xs text-slate-400" style={{fontFamily:"'JetBrains Mono',monospace"}}>
+        <span className="text-violet-500">// zahids-portfolio.vercel.app</span> · Built with React + Tailwind + Vite · © 2026
+      </p>
+    </footer>
+  );
 }
-
 export default Footer;
