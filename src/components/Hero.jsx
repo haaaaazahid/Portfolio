@@ -21,8 +21,7 @@ MOHD ZAHID SHAIKH
 
 <p className="mt-5 text-2xl">
 
-Full Stack Developer • AI Enthusiast
-
+Full Stack Developer •  AI-Assisted Web Developer
 </p>
 
 </section>
