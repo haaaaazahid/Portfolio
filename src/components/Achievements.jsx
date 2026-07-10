@@ -44,15 +44,26 @@ function Achievements() {
                 style={{ borderColor: "var(--border)", background: "var(--surface)" }}
               >
                 {img ? (
-                  <div className="relative overflow-hidden group">
+                  <div
+                    className="relative overflow-hidden group cursor-zoom-in"
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View larger image: ${item.title}`}
+                    onClick={() => setSelected(img)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setSelected(img);
+                      }
+                    }}
+                  >
                     <img
                       src={img}
                       alt={item.title}
-                      onClick={() => setSelected(img)}
-                      className="cursor-zoom-in w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500 pointer-events-none"
                     />
                     <div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none"
                       style={{ background: "rgba(5,6,10,0.35)" }}
                     >
                       <ZoomIn className="text-white" size={22} />
