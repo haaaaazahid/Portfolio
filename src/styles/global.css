@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #FAFAFB;
+  --bg-soft: #F2F3F6;
+  --surface: #FFFFFF;
+  --surface-2: #F5F6F9;
+  --border: #E3E5EA;
+  --border-strong: #CBCFD8;
+  --text: #10121A;
+  --text-muted: #5B6070;
+  --text-faint: #8A8F9E;
+  --accent: #C9760A;
+  --accent-soft: #FDF0DD;
+  --accent-2: #0E9C88;
+  --accent-2-soft: #E1F6F1;
+  --danger: #D64545;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0A0B10;
+  --bg-soft: #0F1117;
+  --surface: #12141C;
+  --surface-2: #171A24;
+  --border: #23262F;
+  --border-strong: #333744;
+  --text: #EDEEF2;
+  --text-muted: #9A9FAE;
+  --text-faint: #676C7B;
+  --accent: #FFB454;
+  --accent-soft: #2A2010;
+  --accent-2: #4FD8C0;
+  --accent-2-soft: #10241F;
+  --danger: #FF6B6B;
+  color-scheme: dark;
+}
+
+* {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.15s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Instrument Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+::selection { background: var(--accent); color: #10121A; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+.blink-caret { animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 28s linear infinite; }
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(20px,-30px) scale(1.05); }
+}
+@keyframes float-slower {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-25px,25px) scale(1.08); }
+}
+.animate-float-slow { animation: float-slow 14s ease-in-out infinite; }
+.animate-float-slower { animation: float-slower 18s ease-in-out infinite; }
+
+.text-balance { text-wrap: balance; }
