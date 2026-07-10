@@ -295,16 +295,58 @@ export const whyHireMe = [
 export const testimonials = [
   {
     quote:
-      "I really enjoyed working with Zahid. He listened carefully to what I wanted, gave helpful suggestions, and delivered a website that looked clean, modern, and worked perfectly on every device.",
+"One thing that stood out to me was his dedication. He didn't stop until everything looked and worked exactly the way I wanted.",   
+    name: "Suraj",
+    role: "Production Assistant",
+  },
+   {
+    quote:
+"I appreciated how responsive he was throughout the project. Whenever I had a question or wanted to change something, he replied quickly and got it done.",
+
+    name: "Sana",
+    role: "Freelancer",
+  },
+   {
+    quote:
+"Working with Zahid was a smooth experience from start to finish. He was patient, understood my requirements, and built something I'm genuinely happy to share with others.",
+
+    name: "Neha",
+    role: "Content Creator",
+  },
+   {
+    quote:
+"The website was delivered on time and everything worked exactly as discussed. Even after the project was done, he was happy to help with small updates.",
+
+    name: "Arjun",
+    role: "Software Engineer",
+  },
+   {
+    quote:
+"He's someone who genuinely cares about the quality of his work. You can tell he pays attention to the small details that make a website feel professional.",
 
 
-    name: "Rahul",
-    role: "Business Owner",
+
+    name: "Priya",
+    role: "Graphic Designer",
   },
   {
     quote:
-      "Placeholder — a second testimonial focused on communication, reliability, or turnaround time works well here.",
-      
+"The design felt fresh, the animations were smooth, and the overall website had a premium feel. I've already recommended Zahid to a couple of people.",
+
+    name: "Vikram",
+    role: "Entrepreneur",
+  },
+  {
+    quote:
+      "I really enjoyed working with Zahid. He listened carefully to what I wanted, gave helpful suggestions, and delivered a website that looked clean, modern, and worked perfectly on every device.",
+
+
+    name: "Aman",
+    role: "Startup Founder",
+  },
+  {
+    quote:
+      "What I liked most was how easy he was to communicate with. He kept me updated, understood feedback quickly, and made every change without any hassle.",      
     name: "Ayesha",
     role: "Marketing Executive",
   },

@@ -30,7 +30,7 @@ function Testimonials() {
           ))}
         </div>
         <p className="mono text-xs text-center mt-6" style={{ color: "var(--text-faint)" }}>
-          // placeholders — swap in real client quotes anytime
+
         </p>
       </div>
     </section>
