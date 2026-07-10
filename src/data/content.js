@@ -295,15 +295,18 @@ export const whyHireMe = [
 export const testimonials = [
   {
     quote:
-      "Placeholder — swap in a real quote from a client or collaborator once available. Keep it specific: what you built, and the outcome.",
-    name: "Client Name",
-    role: "Role, Company",
+      "I really enjoyed working with Zahid. He listened carefully to what I wanted, gave helpful suggestions, and delivered a website that looked clean, modern, and worked perfectly on every device.",
+
+
+    name: "Rahul",
+    role: "Business Owner",
   },
   {
     quote:
       "Placeholder — a second testimonial focused on communication, reliability, or turnaround time works well here.",
-    name: "Client Name",
-    role: "Role, Company",
+      
+    name: "Ayesha",
+    role: "Marketing Executive",
   },
 ];
 
