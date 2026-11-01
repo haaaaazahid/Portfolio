@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MOHD ZAHID SHAIKH — Two worlds. One identity.</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--ember:#E8452C;--chalk:#F2EEE8;--coal:#16130F;--paper:#DDE3E6;--ink:#14202B;--signal:#2B59FF;--bg:var(--coal);--fg:var(--chalk);--mut:#a79f94;--line:rgba(242,238,232,.2);--acc:var(--ember);
+--sans:"Hanken Grotesk",system-ui,sans-serif;--cond:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;--serif:"Instrument Serif",Georgia,serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--sans);overflow-x:hidden;transition:background .6s,color .6s}
+body.dev{--bg:var(--paper);--fg:var(--ink);--mut:#4d5c69;--line:rgba(20,32,43,.22);--acc:var(--signal)}
+a{color:inherit}:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+@media(pointer:fine){body.cur,body.cur a,body.cur button{cursor:none}}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(14px + env(safe-area-inset-top,0px)) 22px 14px;background:linear-gradient(var(--bg),transparent)}
+.hdr a{text-decoration:none;font-weight:700;font-size:14px}.hdr nav{display:flex;gap:18px}.hdr nav a{font-weight:500;padding:8px 2px}
+.bar{position:fixed;left:0;right:0;top:0;height:3px;background:var(--acc);transform-origin:0 50%;z-index:40}
+.dot{position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;background:#fff;mix-blend-mode:difference;z-index:50;pointer-events:none}
+.pre{position:fixed;inset:0;z-index:60;background:var(--coal);color:var(--chalk);display:flex;align-items:flex-end;justify-content:space-between;padding:28px}
+.pre b{font:900 clamp(80px,22vw,300px)/.8 var(--cond)}.pre span{font-size:14px;max-width:18ch}
+.curtain{position:fixed;inset:0;z-index:45;background:var(--acc);transform-origin:50% 100%;pointer-events:none}
+.mask{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}.mask>span{display:inline-block}
+.split{display:flex;min-height:100svh}
+.door{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:120px 32px 48px;text-decoration:none;overflow:hidden;min-width:0}
+.door.c{background:var(--coal);color:var(--chalk)}.door.d{background:var(--paper);color:var(--ink)}
+.door h2{font:900 clamp(54px,9vw,150px)/.85 var(--cond);text-transform:uppercase;margin:0}
+.door.d h2{font:italic 400 clamp(58px,9.5vw,156px)/.85 var(--serif);text-transform:none}
+.door p{max-width:30ch;margin:18px 0 0}.go{margin-top:22px;font-weight:700;border-bottom:2px solid;align-self:flex-start;padding-bottom:3px}
+.door.c .go{border-color:var(--ember)}.door.d .go{border-color:var(--signal)}
+.nm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;text-align:center;pointer-events:none;mix-blend-mode:difference;color:#fff;width:90%}
+.nm b{display:block;font:900 clamp(28px,5vw,64px)/.95 var(--cond)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}.sec{padding:72px 0;border-top:1px solid var(--line)}
+.hero{padding:150px 0 80px}.hero h1{margin:0;text-transform:uppercase;font:900 clamp(60px,14vw,220px)/.84 var(--cond)}
+.dev .hero h1{font:400 clamp(46px,9vw,128px)/.94 var(--serif);text-transform:none;max-width:14ch}
+.hero h1 .acc{color:var(--acc)}.lead{max-width:44ch;font-size:20px;margin:26px 0 0}
+h2.t{margin:0 0 24px;font:900 clamp(34px,6vw,72px)/.9 var(--cond);text-transform:uppercase}.dev h2.t{font:400 clamp(34px,5vw,60px)/1 var(--serif);text-transform:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:1px solid var(--line)}
+.cell{padding:24px 24px 28px 0;border-bottom:1px solid var(--line);transition:padding .3s}.cell:hover{padding-left:14px}.cell h3{margin:0 0 6px;font-size:20px}
+.note{font-size:14px;color:var(--mut);border:1px dashed var(--line);padding:10px 14px;display:inline-block}
+.tag{display:inline-block;border:1px solid var(--line);padding:2px 10px;margin:0 6px 6px 0;font-size:13px;border-radius:99px}
+.mq{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;white-space:nowrap}
+.mq div{display:inline-block;animation:mq 28s linear infinite;font:900 clamp(30px,5vw,60px)/1 var(--cond);text-transform:uppercase}
+.dev .mq div{font:italic 400 clamp(30px,5vw,60px)/1 var(--serif);text-transform:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+.photo{aspect-ratio:16/7;border:1px dashed var(--line);display:grid;place-items:center;color:var(--mut);font-size:13px;overflow:hidden;margin-top:36px}
+.case{display:grid;grid-template-columns:1fr 1.4fr;gap:32px;padding:36px 0;border-bottom:1px solid var(--line)}.case h3{font:400 clamp(32px,4vw,52px)/1 var(--serif);margin:0 0 10px}
+.cover{aspect-ratio:4/3;border:1px dashed var(--line);display:grid;place-items:center;color:var(--mut);font-size:13px}
+.btn{display:inline-block;background:var(--acc);color:#fff;padding:14px 26px;text-decoration:none;font-weight:700}
+.moves{columns:2 220px;list-style:none;padding:0;margin:0;font:800 clamp(24px,3.4vw,40px)/1.25 var(--cond);text-transform:uppercase}
+footer{padding:48px 22px;text-align:center;color:var(--mut);font-size:14px;border-top:1px solid var(--line)}
+@media(max-width:760px){.split{flex-direction:column}.door{flex:none!important;min-height:50svh;padding:100px 22px 36px}.nm{position:static;transform:none;text-align:left;padding:90px 22px 0;background:var(--coal);width:auto;mix-blend-mode:normal}.case{grid-template-columns:1fr}.hdr nav{gap:12px}}
+@media(prefers-reduced-motion:reduce){.mq div{animation:none}}
+.f{display:grid;gap:12px;max-width:560px;margin-bottom:32px}.f input,.f select,.f textarea{font:inherit;padding:12px;border:1px solid var(--line);background:transparent;color:inherit;width:100%}.gal{columns:3 240px;gap:12px}.gal>*{display:block;width:100%;margin:0 0 12px;padding:0;border:0;background:none;break-inside:avoid}.gal img{width:100%;display:block}.lb{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.92);display:grid;place-items:center;align-content:center;gap:16px;padding:20px}.lb img{max-width:100%;max-height:80vh}button.tag{cursor:pointer}</style></head><body>
+<div id="root"></div>
+<script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/framer-motion@10.18.0/dist/framer-motion.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const {useState,useEffect,useRef}=React;
+const {motion,AnimatePresence,useScroll,useTransform,useSpring,useMotionValue,useReducedMotion}=Motion;
+const E=[.76,0,.24,1];
+function useHash(){const g=()=>(location.hash||"#home").slice(1);const[h,s]=useState(g());useEffect(()=>{const f=()=>s(g());addEventListener("hashchange",f);return()=>removeEventListener("hashchange",f)},[]);return h}
+function Words({text,delay=0,className,as:T="div"}){const rm=useReducedMotion();const M=motion[T];
+return <M className={className} aria-label={text}>{text.split(" ").map((w,i)=><span className="mask" aria-hidden="true" key={i}><motion.span initial={rm?false:{y:"110%"}} animate={{y:0}} transition={{duration:.9,ease:E,delay:delay+i*.07}}>{w}&nbsp;</motion.span></span>)}</M>}
+function Reveal({children,d=0,style}){const rm=useReducedMotion();return <motion.div style={style} initial={rm?false:{opacity:0,y:40}} whileInView={{opacity:1,y:0}} viewport={{once:true,margin:"-60px"}} transition={{duration:.8,ease:E,delay:d}}>{children}</motion.div>}
+function Magnetic({children}){const x=useMotionValue(0),y=useMotionValue(0),sx=useSpring(x,{stiffness:200,damping:15}),sy=useSpring(y,{stiffness:200,damping:15});
+return <motion.div style={{x:sx,y:sy,display:"inline-block"}} onMouseMove={e=>{const r=e.currentTarget.getBoundingClientRect();x.set((e.clientX-r.left-r.width/2)*.3);y.set((e.clientY-r.top-r.height/2)*.3)}} onMouseLeave={()=>{x.set(0);y.set(0)}}>{children}</motion.div>}
+function Cursor(){const x=useMotionValue(-50),y=useMotionValue(-50),sx=useSpring(x,{stiffness:500,damping:30}),sy=useSpring(y,{stiffness:500,damping:30}),[big,setBig]=useState(false),[on,setOn]=useState(false);
+useEffect(()=>{if(!matchMedia("(pointer:fine)").matches)return;setOn(true);document.body.classList.add("cur");
+const m=e=>{x.set(e.clientX-7);y.set(e.clientY-7);setBig(!!e.target.closest("a,button"))};addEventListener("mousemove",m);return()=>removeEventListener("mousemove",m)},[]);
+return on?<motion.div className="dot" style={{x:sx,y:sy}} animate={{scale:big?3:1}}/>:null}
+function Marquee({items}){const s=items.join("  ✦  ")+"  ✦  ";return <div className="mq" aria-hidden="true"><div>{s}{s}</div></div>}
+function Para({children,label}){const ref=useRef(null);const{scrollYProgress}=useScroll({target:ref,offset:["start end","end start"]});const y=useTransform(scrollYProgress,[0,1],[-60,60]);return <div className="photo" ref={ref}><motion.div style={{y}}>{label}</motion.div></div>}
+function Home(){const[o,setO]=useState(0);const rm=useReducedMotion();
+const f=i=>rm||!o?1:o===i?1.5:.7;
+return <div><div className="split"><div className="nm"><b>MOHD ZAHID SHAIKH</b>Two worlds. One identity.</div>
+<motion.a href="#coach" className="door c" animate={{flexGrow:f(1)}} transition={{duration:.7,ease:E}} style={{flexBasis:0}} onMouseEnter={()=>setO(1)} onMouseLeave={()=>setO(0)} onFocus={()=>setO(1)} onBlur={()=>setO(0)}><h2>The<br/>Coach</h2><p>Calisthenics and kickboxing. Strength, movement and discipline, taught.</p><span className="go">Enter the coach world</span></motion.a>
+<motion.a href="#developer" className="door d" animate={{flexGrow:f(2)}} transition={{duration:.7,ease:E}} style={{flexBasis:0}} onMouseEnter={()=>setO(2)} onMouseLeave={()=>setO(0)} onFocus={()=>setO(2)} onBlur={()=>setO(0)}><h2>The<br/>Developer</h2><p>Full-stack web development, and the founder of Zhub.</p><span className="go">Enter the developer world</span></motion.a></div>
+<div className="wrap sec"><Reveal><p style={{font:"400 clamp(28px,4vw,48px)/1.15 var(--serif)",maxWidth:"24ch"}}>I coach the body and build software. Both start the same way: show up, repeat it, get better.</p></Reveal>
+<Reveal d={.1}><Magnetic><a className="btn" href="#contact">Get in touch</a></Magnetic></Reveal></div></div>}
+const Cells=({a})=><div className="grid">{a.map(([h,p],i)=><Reveal key={h} d={i*.05}><div className="cell"><h3>{h}</h3><p>{p}</p></div></Reveal>)}</div>;
+function Coach(){return <div><div className="wrap"><div className="hero"><Words as="h1" text="Built through discipline."/><Reveal d={.5}><p className="lead">Movement, strength and discipline — developed through practice and shared through coaching.</p></Reveal><Para label="Photo slot: coach hero image"/></div></div>
+<Marquee items={["Calisthenics","Kickboxing","Strength","Mobility","Skill"]}/>
+<div className="wrap"><div className="sec"><h2 className="t">The journey</h2><Reveal><p style={{maxWidth:"60ch"}}>I coach calisthenics and kickboxing, with Master Calisthenics India (MCI) and Train With Zahid (TWZ) as part of that journey.</p><span className="note">To add: philosophy, roles and dates at MCI and TWZ.</span></Reveal></div>
+<div className="sec"><h2 className="t">Specialities</h2><Cells a={[["Calisthenics","Bodyweight skill and strength."],["Kickboxing","Technique, combinations, conditioning."],["Strength and conditioning","A strong base."],["Mobility and flexibility","Range that supports skills."],["Bodyweight strength","Pull, push, hold."],["Skill development","Progressions, step by step."]]}/></div>
+<div className="sec"><h2 className="t">Movement library</h2><Reveal><ul className="moves">{["Pull-ups","Muscle-up progressions","Front lever progressions","Back lever","Handstand","L-sit","Dips","Push-ups","Kickboxing combinations"].map(m=><li key={m}>{m}</li>)}</ul></Reveal></div>
+<div className="sec"><h2 className="t">Achievements</h2><Cells a={[["Kickboxing gold medal","District level."],["NCC Company Sergeant Major","Leadership role."],["NCC B and C certificates","Names and dates to be added."]]}/></div>
+<div className="sec"><h2 className="t">Programmes</h2><p>Personal coaching · Group sessions · Calisthenics · Kickboxing · Strength and conditioning</p><span className="note">Details and pricing to be added.</span></div>
+<Gallery/><div className="sec"><Magnetic><a className="btn" href="#contact">Enquire about coaching</a></Magnetic></div></div></div>}
+function Dev(){const P=useApi("/api/projects");
+const S={Frontend:["HTML","CSS","JavaScript","React","Next.js","TypeScript"],Backend:["Node.js","Express","REST APIs"],Databases:["MySQL","Supabase","Firebase"],Tools:["Git","GitHub","VS Code","Vercel"],Other:["AI-assisted development","Responsive design","UI/UX implementation","Product prototyping"]};
+return <div><div className="wrap"><div className="hero"><Words as="h1" text="I build digital experiences and products."/><Reveal d={.5}><p className="lead">Software development, creative problem-solving and the process of turning ideas into functional digital products.</p></Reveal></div></div>
+<Marquee items={["React","Node.js","JavaScript","TypeScript","Supabase","MySQL","Framer Motion"]}/>
+<div className="wrap"><div className="sec"><h2 className="t">Background</h2><Reveal><p style={{maxWidth:"60ch"}}>BSc Computer Science, Royal College of Arts, Science and Commerce (Autonomous). Graduating 2026, CGPI 6.95. Interests: full-stack, frontend and backend development, databases and AI-assisted development.</p></Reveal></div>
+<div className="sec"><h2 className="t">Skills</h2>{Object.entries(S).map(([k,v])=><Reveal key={k}><p><b>{k}</b><br/>{v.map(t=><span className="tag" key={t}>{t}</span>)}</p></Reveal>)}</div>
+<div className="sec"><h2 className="t">Selected projects</h2>{P.map(p=>{const n=p.title,s=p.status,d=p.description,t=p.tags||[];return <Reveal key={p.id}><article className="case">{p.cover?<img src={p.cover} alt={n+" cover"} loading="lazy" style={{width:"100%",aspectRatio:"4/3",objectFit:"cover"}}/>:<div className="cover">No cover image yet</div>}<div><h3>{n}</h3><b style={{color:"var(--acc)",fontSize:13}}>Status: {s}</b><p>{d}</p>{t.map(x=><span className="tag" key={x}>{x}</span>)}<p>{p.liveUrl&&<a href={p.liveUrl} target="_blank" rel="noopener noreferrer">Live site</a>}{p.liveUrl&&p.githubUrl&&" · "}{p.githubUrl&&<a href={p.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>}</p></div></article></Reveal>})}{!P.length&&<span className="note">No published projects yet.</span>}</div>
+<div className="sec"><h2 className="t">Beyond code. Building ideas.</h2><p>I’m the founder of Zhub, part of my developer work.</p><Magnetic><a className="btn" href="#zhub">Read about Zhub</a></Magnetic></div></div></div>}
+function Zhub(){return <div className="wrap"><div className="hero"><a href="#developer">Back to Developer</a><Words as="h1" text="Zhub. Building ideas."/><Reveal d={.4}><p className="lead">Founder: Mohd Zahid Shaikh.</p></Reveal></div><div className="sec"><span className="note">Vision, mission, product direction, milestones and updates not yet provided. Nothing about users, revenue or funding is claimed.</span></div></div>}
+function useApi(u){const[d,s]=useState([]);useEffect(()=>{fetch(u).then(r=>r.json()).then(s).catch(()=>{})},[u]);return d}
+const tok=()=>sessionStorage.getItem("t")||"";
+const api=(u,o={})=>fetch(u,{...o,headers:{...(o.headers||{}),Authorization:"Bearer "+tok()}}).then(async r=>{const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||"Request failed.");return j});
+const JSONH={"Content-Type":"application/json"};
+const CATS=["Calisthenics","Kickboxing","Strength","Mobility","Training"];
+function Gallery(){const g=useApi("/api/gallery");const[c,setC]=useState("All");const[o,setO]=useState(null);const cats=["All",...new Set(g.map(x=>x.category))];const v=g.filter(x=>c==="All"||x.category===c);
+return <div className="sec"><h2 className="t">Training gallery</h2>{!g.length?<span className="note">No photos yet. Upload them from /admin.</span>:<><div>{cats.map(x=><button key={x} className="tag" aria-pressed={c===x} onClick={()=>setC(x)} style={{background:c===x?"var(--acc)":"none",color:"inherit",font:"inherit"}}>{x}</button>)}</div>
+<div className="gal">{v.map((x,i)=><motion.button key={x.id} initial={{opacity:0,scale:.94}} whileInView={{opacity:1,scale:1}} viewport={{once:true}} transition={{duration:.5,delay:(i%6)*.05}} onClick={()=>setO(x)} aria-label={"Open "+(x.caption||x.category)}><img loading="lazy" src={x.src} alt={x.alt||x.caption||x.category}/></motion.button>)}</div></>}
+<AnimatePresence>{o&&<motion.div className="lb" role="dialog" aria-label="Image viewer" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setO(null)}><img src={o.src} alt={o.alt||o.caption||o.category}/><button className="btn" autoFocus onClick={()=>setO(null)}>Close</button></motion.div>}</AnimatePresence></div>}
+function Contact(){const[st,setSt]=useState("");const send=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));setSt("sending");try{await api("/api/contact",{method:"POST",headers:JSONH,body:JSON.stringify(f)});setSt("done");e.target.reset()}catch(x){setSt("Error: "+x.message)}};
+return <div className="wrap"><div className="hero"><Words as="h1" text="Let’s talk."/></div><div className="sec"><form className="f" onSubmit={send}><input name="name" placeholder="Name" required/><input name="email" type="email" placeholder="Email" required/><select name="category" aria-label="Enquiry category">{["Software development","Project collaboration","Coaching","Business / Zhub","Other"].map(c=><option key={c}>{c}</option>)}</select><input name="subject" placeholder="Subject" required/><textarea name="message" rows="6" placeholder="Message" required/><input name="website" tabIndex="-1" autoComplete="off" aria-hidden="true" style={{display:"none"}}/><button className="btn" disabled={st==="sending"}>Send message</button>
+<p role="status">{st==="done"?"Message sent. I’ll reply by email.":st.startsWith("Error")?st:""}</p></form></div></div>}
+function Admin(){const[ok,setOk]=useState(!!tok());const[pw,setPw]=useState("");const[tab,setTab]=useState("Projects");const[err,setErr]=useState("");
+const login=async e=>{e.preventDefault();try{const j=await api("/api/login",{method:"POST",headers:JSONH,body:JSON.stringify({password:pw})});sessionStorage.setItem("t",j.token);setOk(true);setErr("")}catch(x){setErr(x.message)}};
+if(!ok)return <div className="wrap" style={{paddingTop:140}}><h2 className="t">Admin</h2><form className="f" onSubmit={login}><input type="password" value={pw} onChange={e=>setPw(e.target.value)} placeholder="Password" aria-label="Password" autoFocus/><button className="btn">Sign in</button>{err&&<p role="alert">{err}</p>}</form></div>;
+return <div className="wrap" style={{paddingTop:120}}><h2 className="t">Admin</h2><div>{["Projects","Gallery","Enquiries"].map(t=><button key={t} className="tag" aria-pressed={tab===t} onClick={()=>setTab(t)} style={{background:tab===t?"var(--acc)":"none",color:"inherit",font:"inherit"}}>{t}</button>)}<button className="tag" style={{background:"none",color:"inherit",font:"inherit"}} onClick={()=>{sessionStorage.removeItem("t");setOk(false)}}>Log out</button></div>
+{tab==="Projects"?<AdminProjects/>:tab==="Gallery"?<AdminGallery/>:<AdminMail/>}</div>}
+function useList(u){const[d,s]=useState([]);const[e,setE]=useState("");const r=()=>api(u).then(s).catch(x=>{setE(x.message);if(x.message.startsWith("Sign"))sessionStorage.removeItem("t")});useEffect(()=>{r()},[]);return[d,r,e]}
+function AdminProjects(){const[l,r,e]=useList("/api/projects?all=1");const[ed,setEd]=useState(null);const[m,setM]=useState("");
+const submit=async x=>{x.preventDefault();const fd=new FormData(x.target);fd.set("published",x.target.published.checked);try{await api(ed?"/api/projects/"+ed.id:"/api/projects",{method:ed?"PUT":"POST",body:fd});x.target.reset();setEd(null);setM("Saved.");r()}catch(z){setM(z.message)}};
+const act=async(f,msg)=>{try{await f();setM(msg);r()}catch(z){setM(z.message)}};
+return <div><form className="f" key={ed?.id||"new"} onSubmit={submit}><h3>{ed?"Edit project":"New project"}</h3><input name="title" placeholder="Title" defaultValue={ed?.title} required/><input name="status" placeholder="Status (e.g. In progress)" defaultValue={ed?.status}/><textarea name="description" rows="4" placeholder="Description" defaultValue={ed?.description}/><input name="tags" placeholder="Tags, comma separated" defaultValue={ed?.tags?.join(", ")}/><input name="liveUrl" placeholder="Live URL (https://…)" defaultValue={ed?.liveUrl}/><input name="githubUrl" placeholder="GitHub URL (https://…)" defaultValue={ed?.githubUrl}/><label>Cover image <input name="cover" type="file" accept="image/*"/></label><label><input name="published" type="checkbox" defaultChecked={ed?ed.published:true}/> Published</label><button className="btn">{ed?"Save changes":"Add project"}</button>{ed&&<button type="button" className="tag" style={{background:"none",color:"inherit"}} onClick={()=>setEd(null)}>Cancel</button>}<p role="status">{e||m}</p></form>
+{l.map(p=><div key={p.id} className="cell"><h3>{p.title} <small>{p.published?"Published":"Draft"}</small></h3><button className="tag" style={{background:"none",color:"inherit"}} onClick={()=>setEd(p)}>Edit</button><button className="tag" style={{background:"none",color:"inherit"}} onClick={()=>act(()=>{const f=new FormData();f.set("title",p.title);f.set("status",p.status);f.set("description",p.description);f.set("tags",p.tags.join(","));f.set("liveUrl",p.liveUrl||"");f.set("githubUrl",p.githubUrl||"");f.set("published",!p.published);return api("/api/projects/"+p.id,{method:"PUT",body:f})},p.published?"Unpublished.":"Published.")}>{p.published?"Unpublish":"Publish"}</button><button className="tag" style={{background:"none",color:"inherit"}} onClick={()=>confirm("Delete “"+p.title+"”?")&&act(()=>api("/api/projects/"+p.id,{method:"DELETE"}),"Deleted.")}>Delete</button></div>)}</div>}
+function AdminGallery(){const[l,r]=useList("/api/gallery");const[m,setM]=useState("");
+const up=async x=>{x.preventDefault();try{await api("/api/gallery",{method:"POST",body:new FormData(x.target)});x.target.reset();setM("Uploaded.");r()}catch(z){setM(z.message)}};
+return <div><form className="f" onSubmit={up}><h3>Upload to gallery</h3><input name="image" type="file" accept="image/*" required/><select name="category" aria-label="Category">{CATS.map(c=><option key={c}>{c}</option>)}</select><input name="caption" placeholder="Caption"/><input name="alt" placeholder="Alt text (describe the image)"/><button className="btn">Upload</button><p role="status">{m}</p></form>
+<div className="gal">{l.map(g=><div key={g.id} style={{breakInside:"avoid",marginBottom:12}}><img src={g.src} alt={g.alt||g.caption||g.category} style={{width:"100%"}}/><small>{g.category}</small> <button className="tag" style={{background:"none",color:"inherit"}} onClick={()=>confirm("Delete this image?")&&api("/api/gallery/"+g.id,{method:"DELETE"}).then(r).catch(z=>setM(z.message))}>Delete</button></div>)}</div></div>}
+function AdminMail(){const[l,r,e]=useList("/api/contacts");return <div>{e&&<p role="alert">{e}</p>}{!l.length&&<span className="note">No enquiries yet.</span>}{l.map(c=><div key={c.id} className="cell"><h3>{c.subject} {!c.read&&<small>New</small>}</h3><p>{c.name} · {c.email} · {c.category}<br/>{c.message}</p>{!c.read&&<button className="tag" style={{background:"none",color:"inherit"}} onClick={()=>api("/api/contacts/"+c.id,{method:"PATCH"}).then(r)}>Mark read</button>}<button className="tag" style={{background:"none",color:"inherit"}} onClick={()=>confirm("Delete enquiry?")&&api("/api/contacts/"+c.id,{method:"DELETE"}).then(r)}>Delete</button></div>)}</div>}
+const R={home:Home,coach:Coach,developer:Dev,zhub:Zhub,contact:Contact,admin:Admin};
+function App(){const h=useHash();const k=R[h]?h:"home";const C=R[k];const[pre,setPre]=useState(true);const[n,setN]=useState(0);const rm=useReducedMotion();
+const{scrollYProgress}=useScroll();const sx=useSpring(scrollYProgress,{stiffness:120,damping:25});
+useEffect(()=>{let i=0;const t=setInterval(()=>{i+=rm?100:4;setN(Math.min(i,100));if(i>=100){clearInterval(t);setTimeout(()=>setPre(false),250)}},30);return()=>clearInterval(t)},[]);
+useEffect(()=>{document.body.classList.toggle("dev",k==="developer"||k==="zhub"||k==="contact"||k==="admin");scrollTo(0,0);document.title=(k==="home"?"":k[0].toUpperCase()+k.slice(1)+" — ")+"MOHD ZAHID SHAIKH"},[k]);
+return <>
+<motion.div className="bar" style={{scaleX:sx}}/><Cursor/>
+<AnimatePresence>{pre&&<motion.div className="pre" exit={{y:"-100%"}} transition={{duration:.9,ease:E}}><span>MOHD ZAHID SHAIKH</span><b>{n}</b></motion.div>}</AnimatePresence>
+<header className="hdr"><a href="#home">MOHD ZAHID SHAIKH</a><nav aria-label="Main"><a href="#coach">Coach</a><a href="#developer">Developer</a><a href="#contact">Contact</a></nav></header>
+<main><AnimatePresence mode="wait"><motion.div key={k} initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.35}}><C/></motion.div></AnimatePresence></main>
+<AnimatePresence><motion.div key={"c"+k} className="curtain" initial={{scaleY:1}} animate={{scaleY:0}} transition={{duration:.8,ease:E,delay:pre?1.4:0}}/></AnimatePresence>
+<footer>© 2026 MOHD ZAHID SHAIKH</footer></>}
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script></body></html>
