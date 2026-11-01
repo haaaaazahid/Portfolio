@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -11,7 +11,7 @@ const Home = page(() => import("./pages/Home")), About = page(() => import("./pa
   Coach = page(() => import("./pages/Coach")), Developer = page(() => import("./pages/Developer")), Zhub = page(() => import("./pages/Zhub")), Admin = page(() => import("./pages/Admin")), Contact = page(() => import("./pages/Contact"));
 
 // Developer-side pages use the signal-blue accent, coach-side pages the ember accent
-const worldFor = (p) => (/^\/(developer|zhub|contact|projects|experience|admin)/.test(p) ? "developer" : "coach");
+const worldFor = (p) => (/^\/(developer|zhub|contact|projects|admin)/.test(p) ? "developer" : "coach");
 
 export default function App() {
   const location = useLocation(); const admin = location.pathname.startsWith("/admin"); const [ready, setReady] = useState(admin);
@@ -24,11 +24,11 @@ export default function App() {
       <main id="main" className="min-h-[100svh]">
         {/* Same as the original: fade out, reset scroll, fade in — with the accent curtain retracting over it */}
         <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
-          <motion.div key={k} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
+          <motion.div key={k} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}>
             <Suspense fallback={<div className="wrap pt-40"><Loading /></div>}>
               <Routes location={location}>
                 <Route path="/" element={<Home />} /><Route path="/about" element={<About />} /><Route path="/projects" element={<Projects />} /><Route path="/projects/:id" element={<ProjectDetail />} />
-                <Route path="/experience" element={<Experience />} /><Route path="/gallery" element={<Gallery />} /><Route path="/coach" element={<Coach />} />
+                <Route path="/coach/experience" element={<Experience world="coach" />} /><Route path="/developer/experience" element={<Experience world="developer" />} /><Route path="/experience" element={<Navigate to="/developer/experience" replace />} /><Route path="/gallery" element={<Gallery />} /><Route path="/coach" element={<Coach />} />
                 <Route path="/developer" element={<Developer />} /><Route path="/zhub" element={<Zhub />} /><Route path="/contact" element={<Contact />} /><Route path="/admin/*" element={<Admin />} /><Route path="*" element={<Home />} />
               </Routes>
             </Suspense>

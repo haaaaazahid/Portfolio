@@ -16,9 +16,9 @@ export default function Developer() {
       <section className="sec"><h2 className="h-sec">Background</h2>{ed.loading ? <Loading /> : (ed.data || []).map((e) => <Reveal key={e._id}><p className="max-w-[60ch]">{e.degree}, {e.institution}.{e.end && ` Graduating ${e.end}.`}{e.grade && ` ${e.grade}.`} Interests: full-stack, frontend and backend development, databases and AI-assisted development.</p></Reveal>)}</section>
       <section className="sec"><h2 className="h-sec">Skills</h2>{sk.loading ? <Loading /> : Object.entries(groups).map(([k, v]) => <Reveal key={k}><p><b>{k}</b><br />{v.map((s) => <span className="tag" key={s._id}>{s.name}</span>)}</p></Reveal>)}</section>
       <section className="sec"><h2 className="h-sec">Selected projects</h2>
-        {pr.loading ? <Loading /> : pr.error ? <span role="alert" className="note">{pr.error}</span> : !pr.data.length ? <span className="note">No published projects yet.</span>
-          : <div className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">{pr.data.map((p, i) => <ProjectCard key={p._id} p={p} i={i} />)}</div>}</section>
-      <section className="sec"><h2 className="h-sec">Beyond code. Building ideas.</h2><p className="mb-6">I’m the founder of Zhub, part of my developer work.</p><Magnetic><Link to="/zhub" className="btn">Read about Zhub</Link></Magnetic></section>
+        {pr.loading ? <Loading /> : pr.error ? <span role="alert" className="note">{pr.error}</span> : !(pr.data || []).length ? <span className="note">No published projects yet.</span>
+          : <div className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">{(pr.data || []).map((p, i) => <ProjectCard key={p._id} p={p} i={i} />)}</div>}</section>
+      <section className="sec"><h2 className="h-sec">Beyond code. Building ideas.</h2><p className="mb-6">I’m the founder of Zhub, part of my developer work.</p><div className="flex flex-wrap gap-4"><Magnetic><Link to="/zhub" className="btn">Read about Zhub</Link></Magnetic><Magnetic><Link to="/developer/experience" className="btn">Experience and education</Link></Magnetic></div></section>
     </div>
   </div>;
 }

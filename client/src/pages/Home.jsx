@@ -23,7 +23,7 @@ export default function Home() {
     <div>
       <Helmet><meta name="description" content="Coach and full-stack developer. Two worlds, one identity." /></Helmet>
       <div className="flex min-h-[100svh] flex-col">
-        <div className="bg-coal px-[22px] pb-6 pt-[92px] text-chalk md:px-8 md:pb-8 md:pt-[104px]">
+        <div className="bg-coal px-[22px] pb-7 pt-[84px] text-center text-chalk md:px-8 md:pb-9 md:pt-[96px]">
           <h1 className="font-cond text-[clamp(34px,7vw,96px)] font-black uppercase leading-[.92]">MOHD ZAHID SHAIKH</h1>
           <p className="mt-2 text-[15px] opacity-80">{p?.tagline || "Two worlds. One identity."} · Mumbai, India</p></div>
         <div className="flex flex-1 flex-col md:flex-row">

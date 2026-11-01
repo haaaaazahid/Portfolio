@@ -4,10 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Sun, Moon } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
 import { ease } from "./ui";
-const LINKS = [["/about", "About"], ["/projects", "Projects"], ["/experience", "Experience"], ["/gallery", "Gallery"], ["/coach", "Coach"], ["/developer", "Developer"], ["/contact", "Contact"]];
+const LINKS_BASE = [["/about", "About"], ["/projects", "Projects"], ["/experience", "Experience"], ["/gallery", "Gallery"], ["/coach", "Coach"], ["/developer", "Developer"], ["/contact", "Contact"]];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false); const { pathname } = useLocation(); const { theme, toggle } = useTheme();
+  const w = /^\/(coach|gallery)/.test(pathname) ? "coach" : "developer"; const home = pathname === "/";
+  const LINKS = LINKS_BASE.map(([to, l]) => (to === "/experience" ? [`/${w}/experience`, "Experience"] : [to, l]));
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => { // lock scroll and close on Escape while the menu is open
     if (!open) return;
@@ -21,7 +23,7 @@ export default function Navbar() {
       <motion.header initial={{ y: -80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease, delay: 0.2 }}
         className="fixed inset-x-0 top-0 z-40 flex items-center justify-between gap-3 px-[22px] pb-3 pt-[calc(14px+env(safe-area-inset-top,0px))] text-sm lg:px-8"
         style={{ background: "linear-gradient(var(--bg),transparent)" }}>
-        <Link to="/" className="font-bold">MOHD ZAHID SHAIKH</Link>
+        {home ? <span aria-hidden="true" /> : <Link to="/" className="font-bold">MOHD ZAHID SHAIKH</Link>}
         <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
           {LINKS.map(([to, l]) => <NavLink key={to} to={to} className={cls}>{({ isActive }) => <>{l}{isActive && <motion.span layoutId="nav-underline" className="absolute inset-x-0 -bottom-0.5 h-0.5" style={{ background: "var(--acc)" }} />}</>}</NavLink>)}
         </nav>

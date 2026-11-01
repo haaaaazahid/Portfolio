@@ -27,7 +27,7 @@ export default function Coach() {
       <section className="sec"><h2 className="h-sec">Certificates</h2><Certificates world="coach" /></section>
       <section className="sec"><h2 className="h-sec">Programmes</h2><p>Personal coaching · Group sessions · Calisthenics · Kickboxing · Strength and conditioning</p><span className="note mt-3">Details and pricing to be added.</span></section>
       <section className="sec"><h2 className="h-sec">Training gallery</h2><Gallery /></section>
-      <section className="sec"><Magnetic><Link to="/contact" className="btn">Enquire about coaching</Link></Magnetic></section>
+      <section className="sec flex flex-wrap gap-4"><Magnetic><Link to="/coach/experience" className="btn">Coaching experience</Link></Magnetic><Magnetic><Link to="/contact" className="btn">Enquire about coaching</Link></Magnetic></section>
     </div>
   </div>;
 }
