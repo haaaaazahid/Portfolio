@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from "react";
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate, Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -36,7 +36,7 @@ export default function App() {
         </AnimatePresence>
       </main>
       {!admin && <Curtain k={location.pathname} delay={ready ? 0 : 1.4} />}
-      {!admin && <footer className="border-t px-[22px] py-12 text-center text-sm" style={{ borderColor: "var(--line)", color: "var(--mut)" }}>© {new Date().getFullYear()} MOHD ZAHID SHAIKH</footer>}
+      {!admin && <footer className="border-t px-[22px] py-12 text-center text-sm" style={{ borderColor: "var(--line)", color: "var(--mut)" }}>© {new Date().getFullYear()} MOHD ZAHID SHAIKH<span aria-hidden="true"> · </span><Link to="/admin" className="underline underline-offset-4 hover:opacity-100">Admin login</Link></footer>}
     </ThemeProvider>
   );
 }
