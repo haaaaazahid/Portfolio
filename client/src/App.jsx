@@ -4,11 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import { Cursor, ScrollProgress, Preloader, Curtain, Loading } from "./components/ui";
 const page = (f) => lazy(f);
 const Home = page(() => import("./pages/Home")), About = page(() => import("./pages/About")), Projects = page(() => import("./pages/Projects")),
   ProjectDetail = page(() => import("./pages/ProjectDetail")), Experience = page(() => import("./pages/Experience")), Gallery = page(() => import("./pages/Gallery")),
-  Coach = page(() => import("./pages/Coach")), Developer = page(() => import("./pages/Developer")), Zhub = page(() => import("./pages/Zhub")), Admin = page(() => import("./pages/Admin")), Contact = page(() => import("./pages/Contact"));
+  Coach = page(() => import("./pages/Coach")), Developer = page(() => import("./pages/Developer")), Zhub = page(() => import("./pages/Zhub")), Admin = page(() => import("./pages/Admin")), NotFound = page(() => import("./pages/NotFound")), Contact = page(() => import("./pages/Contact"));
 
 // Developer-side pages use the signal-blue accent, coach-side pages the ember accent
 const worldFor = (p) => (/^\/(developer|zhub|contact|projects|experience|admin)/.test(p) ? "developer" : "coach");
@@ -23,20 +24,20 @@ export default function App() {
       {!admin && <><ScrollProgress /><Cursor /><Navbar /></>}{!ready && <Preloader onDone={() => setReady(true)} />}
       <main id="main" className="min-vh">
         {/* Same as the original: fade out, reset scroll, fade in — with the accent curtain retracting over it */}
-        <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+        <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}>
           <motion.div key={k} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
             <Suspense fallback={<div className="wrap pt-40"><Loading /></div>}>
               <Routes location={location}>
                 <Route path="/" element={<Home />} /><Route path="/about" element={<About />} /><Route path="/projects" element={<Projects />} /><Route path="/projects/:id" element={<ProjectDetail />} />
                 <Route path="/experience" element={<Experience />} /><Route path="/gallery" element={<Gallery />} /><Route path="/coach" element={<Coach />} />
-                <Route path="/developer" element={<Developer />} /><Route path="/zhub" element={<Zhub />} /><Route path="/contact" element={<Contact />} /><Route path="/admin/*" element={<Admin />} /><Route path="*" element={<Home />} />
+                <Route path="/developer" element={<Developer />} /><Route path="/zhub" element={<Zhub />} /><Route path="/contact" element={<Contact />} /><Route path="/admin/*" element={<Admin />} /><Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </motion.div>
         </AnimatePresence>
       </main>
       {!admin && <Curtain k={location.pathname} delay={ready ? 0 : 1.4} />}
-      {!admin && <footer className="border-t px-[22px] py-12 text-center text-sm" style={{ borderColor: "var(--line)", color: "var(--mut)" }}>© {new Date().getFullYear()} MOHD ZAHID SHAIKH</footer>}
+      {!admin && <Footer />}
     </ThemeProvider>
   );
 }

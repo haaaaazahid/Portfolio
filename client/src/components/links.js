@@ -1,0 +1,1 @@
+export const LINKS = [["/about", "About"], ["/projects", "Projects"], ["/experience", "Experience"], ["/gallery", "Gallery"], ["/coach", "Coach"], ["/developer", "Developer"], ["/contact", "Contact"]];

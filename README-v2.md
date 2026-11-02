@@ -41,7 +41,7 @@ Palette button in the navbar and admin: Ember & Signal (original), Slate & Amber
 Keep only `server/` and `client/` (plus README). Delete `client/client/` (stale duplicate) and, once you no longer need it, `zs/` (the original single-file version).
 
 ## Not built yet
-SEO sitemap and deployment guide. `gsap` is installed but unused (`npm uninstall gsap`).
+Nothing planned. 
 
 ## Deploying (frontend on Vercel, API elsewhere)
 Vercel only hosts the React app. The Node API and database must be hosted separately, otherwise /admin cannot sign in and public pages stay empty.

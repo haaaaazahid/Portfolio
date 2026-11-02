@@ -23,7 +23,7 @@ export default function Home() {
     <div>
       <Helmet><meta name="description" content="Coach and full-stack developer. Two worlds, one identity." /></Helmet>
       <div className="relative flex min-vh flex-col md:flex-row">
-        <div style={{ background: "var(--da-bg)", color: "var(--da-fg)" }} className="pointer-events-none z-[5] w-full px-[22px] pt-[90px] md:absolute md:left-1/2 md:top-1/2 md:w-[90%] md:-translate-x-1/2 md:-translate-y-1/2 md:!bg-transparent md:p-0 md:text-center md:!text-white md:mix-blend-difference">
+        <div style={{ background: "var(--da-bg)", color: "var(--da-fg)" }} className="pointer-events-none z-[5] w-full px-[22px] pt-[90px] md:absolute md:left-1/2 md:top-[104px] md:w-[90%] md:-translate-x-1/2 md:!bg-transparent md:p-0 md:text-center md:!text-white md:mix-blend-difference">
           <b className="block font-cond text-[clamp(28px,5vw,64px)] font-black leading-[.95]">MOHD ZAHID SHAIKH</b>{p?.tagline || "Two worlds. One identity."}</div>
         {doors.map((x) => (
           <motion.div key={x.i} animate={{ flexGrow: grow(x.i) }} transition={{ duration: 0.7, ease }} style={{ flexBasis: 0, ...x.st }} className="min-w-0 flex-none md:flex-auto"
