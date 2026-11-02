@@ -22,7 +22,7 @@ MongoDB URI (required) · JWT secret (required) · Cloudinary keys (optional; lo
 
 ## Frontend routes
 `/` split-doors home · `/about` · `/projects` (+ `/projects/:id`) · `/experience` · `/gallery` · `/coach` · `/developer` · `/zhub` · `/contact` · `/admin` (login at `/admin/login`)
-Animations carried over from the original HTML: counter preloader, accent curtain wipe, masked word reveals, scroll reveals, magnetic buttons, cursor dot, marquee, parallax photo slots, scroll progress bar, expanding split doors.
+Animations carried over from the original HTML: cinematic intro (athlete + developer animation, name reveal, split-screen open; once per browser tab session, Skip/Esc works), accent curtain wipe, masked word reveals, scroll reveals, magnetic buttons, cursor dot, marquee, parallax photo slots, scroll progress bar, expanding split doors.
 
 ## Admin (`/admin`)
 Sign in with the ADMIN_EMAIL / ADMIN_PASSWORD from `server/.env` (created by `npm run seed`).

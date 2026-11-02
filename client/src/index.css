@@ -59,3 +59,8 @@ button.tag { min-height:36px; padding-inline:14px; }
 @media (max-width:380px) { body { font-size:16px; } }
 @media (hover:none) { .group:hover img { transform:none; } }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } .mq > div { animation:none; } }
+
+:root { --dev-dark:#5B7FFF; }
+[data-palette="slate"] { --dev-dark:#38BDF8; }
+[data-palette="forest"] { --dev-dark:#5FCBA4; }
+[data-palette="lime"] { --dev-dark:#7CF0C9; }

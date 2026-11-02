@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion";
 export const ease = [0.76, 0, 0.24, 1];
 
 // Word-by-word masked reveal. aria-label keeps the heading readable to screen readers.
@@ -47,19 +47,11 @@ export function Para({ src, alt = "", label, className = "" }) {
   return <div ref={ref} className={`mt-9 grid aspect-[16/7] place-items-center overflow-hidden border border-dashed text-[13px] ${className}`} style={{ borderColor: "var(--line)", color: "var(--mut)" }}>
     {src ? <motion.img src={src} alt={alt} loading="lazy" className="h-[130%] w-full object-cover" style={{ y }} /> : <motion.div style={{ y }}>{label}</motion.div>}</div>;
 }
-// Counter preloader that slides up when done (same timing as the original: +4 every 30ms)
-export function Preloader({ onDone }) {
-  const rm = useReducedMotion(); const [n, setN] = useState(0); const [show, setShow] = useState(true);
-  useEffect(() => {
-    let i = 0, to; const t = setInterval(() => { i += rm ? 100 : 4; setN(Math.min(i, 100)); if (i >= 100) { clearInterval(t); to = setTimeout(() => setShow(false), 250); } }, 30);
-    return () => { clearInterval(t); clearTimeout(to); };
-  }, [rm]);
-  return <AnimatePresence onExitComplete={onDone}>{show && <motion.div role="status" aria-label="Loading" className="fixed inset-0 z-[90] flex items-end justify-between p-7" style={{ background: "var(--da-bg)", color: "var(--da-fg)" }} exit={{ y: "-100%" }} transition={{ duration: 0.9, ease }}>
-    <span className="max-w-[18ch] text-sm">MOHD ZAHID SHAIKH</span><b className="font-cond text-[clamp(80px,22vw,300px)] font-black leading-[.8]">{n}</b></motion.div>}</AnimatePresence>;
-}
 // Accent-coloured wipe that retracts on every route change
-export function Curtain({ k, delay = 0 }) {
-  const rm = useReducedMotion(); if (rm) return null;
-  return <motion.div key={k} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[45] origin-bottom" style={{ background: "var(--acc)" }} initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} transition={{ duration: 0.8, ease, delay }} />;
+export function Curtain({ k, delay = 0, skipFirst = false }) {
+  const rm = useReducedMotion(); const first = useRef(skipFirst); // the intro already provides the first reveal
+  useEffect(() => { first.current = false; }, [k]);
+  if (rm) return null;
+  return <motion.div key={k} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[45] origin-bottom" style={{ background: "var(--acc)" }} initial={{ scaleY: first.current ? 0 : 1 }} animate={{ scaleY: 0 }} transition={{ duration: 0.8, ease, delay }} />;
 }
 export const Loading = () => <p role="status" className="note">Loading…</p>;
