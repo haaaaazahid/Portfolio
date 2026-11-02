@@ -34,7 +34,7 @@ const profile = {
 };
 const uploadImage = wrap(async (req, res) => {
   if (!req.file) return res.status(400).json({ success: false, error: "Choose an image." });
-  res.status(201).json({ success: true, data: { url: await store(req.file) } });
+  res.status(201).json({ success: true, data: { url: await store(req.file, req) } });
 });
 const stats = wrap(async (q, r) => {
   const { Project, Skill, Gallery } = require("../models");

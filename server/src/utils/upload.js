@@ -11,12 +11,12 @@ const upload = multer({
   fileFilter: (q, f, cb) => (EXT[f.mimetype] ? cb(null, true) : cb(Object.assign(new Error("Only JPG, PNG, WebP or GIF up to 5 MB."), { status: 400 }))),
 });
 // Returns a public URL: Cloudinary when configured, otherwise local /uploads
-async function store(file) {
+async function store(file, req) {
   if (cfg.cloudinary) {
     return new Promise((ok, no) => cloudinary.uploader.upload_stream({ folder: "zahid-portfolio", resource_type: "image" }, (e, r) => (e ? no(e) : ok(r.secure_url))).end(file.buffer));
   }
   const name = crypto.randomUUID() + EXT[file.mimetype];
   await fs.promises.writeFile(path.join(DIR, name), file.buffer);
-  return "/uploads/" + name;
+  return (req ? `${req.protocol}://${req.get("host")}` : "") + "/uploads/" + name;
 }
 module.exports = { upload, store, DIR };

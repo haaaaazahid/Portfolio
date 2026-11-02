@@ -8,8 +8,16 @@ async function request(path, { method = "GET", body, form } = {}) {
   const t = getToken();
   if (t) headers.Authorization = `Bearer ${t}`;
   if (body) headers["Content-Type"] = "application/json";
-  const res = await fetch(BASE + path, { method, headers, body: form || (body && JSON.stringify(body)) });
-  const json = await res.json().catch(() => ({}));
+  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 70000); // free hosts can take ~1 min to wake up
+  let res;
+  try { res = await fetch(BASE + path, { method, headers, body: form || (body && JSON.stringify(body)), signal: ctrl.signal }); }
+  catch (e) { throw new Error(e.name === "AbortError" ? "The server took too long to respond. If it is on a free host it may be waking up — try again in a minute." : "Cannot reach the server. Check your internet and that the API is running."); }
+  finally { clearTimeout(timer); }
+  const isJson = (res.headers.get("content-type") || "").includes("json");
+  const json = isJson ? await res.json().catch(() => ({})) : {};
+  if (!isJson) throw new Error(res.status >= 500 && !import.meta.env.PROD ? "The API is not responding. Check that the server is running and MongoDB is connected."
+    : import.meta.env.PROD && !import.meta.env.VITE_API_URL ? "This site has no backend configured. Set VITE_API_URL to your deployed API address (ending in /api) and redeploy."
+    : "The API returned a web page instead of data. Check VITE_API_URL and that the server is running.");
   if (!res.ok) {
     if (res.status === 401 && t) { setToken(""); window.dispatchEvent(new Event("auth:expired")); }
     throw new Error(json.error || "Request failed.");

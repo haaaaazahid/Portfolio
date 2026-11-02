@@ -11,7 +11,7 @@ export default function Projects() {
   return <div className="wrap pb-20 pt-40">
     <Helmet><title>Projects</title><meta name="description" content="Selected software projects." /></Helmet>
     <Words text="Selected projects." className="h-hero mb-10" />
-    <div className="mb-6" role="group" aria-label="Filter by category">{cats.map((c) => <button key={c} className="tag" aria-pressed={cat === c} onClick={() => setCat(c)} style={cat === c ? { background: "var(--acc)", color: "#fff", borderColor: "var(--acc)" } : undefined}>{c}</button>)}</div>
+    <div className="mb-6" role="group" aria-label="Filter by category">{cats.map((c) => <button key={c} className="tag" aria-pressed={cat === c} onClick={() => setCat(c)} style={cat === c ? { background: "var(--acc)", color: "var(--on-acc)", borderColor: "var(--acc)" } : undefined}>{c}</button>)}</div>
     {loading ? <Loading /> : error ? <span role="alert" className="note">{error}</span> : !list.length ? <span className="note">No projects in this category yet.</span>
       : <div className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">{list.map((p, i) => <ProjectCard key={p._id} p={p} i={i} />)}</div>}
   </div>;

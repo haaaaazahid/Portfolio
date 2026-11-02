@@ -54,7 +54,7 @@ export function Preloader({ onDone }) {
     let i = 0, to; const t = setInterval(() => { i += rm ? 100 : 4; setN(Math.min(i, 100)); if (i >= 100) { clearInterval(t); to = setTimeout(() => setShow(false), 250); } }, 30);
     return () => { clearInterval(t); clearTimeout(to); };
   }, [rm]);
-  return <AnimatePresence onExitComplete={onDone}>{show && <motion.div role="status" aria-label="Loading" className="fixed inset-0 z-[90] flex items-end justify-between p-7" style={{ background: "#16130F", color: "#F2EEE8" }} exit={{ y: "-100%" }} transition={{ duration: 0.9, ease }}>
+  return <AnimatePresence onExitComplete={onDone}>{show && <motion.div role="status" aria-label="Loading" className="fixed inset-0 z-[90] flex items-end justify-between p-7" style={{ background: "var(--da-bg)", color: "var(--da-fg)" }} exit={{ y: "-100%" }} transition={{ duration: 0.9, ease }}>
     <span className="max-w-[18ch] text-sm">MOHD ZAHID SHAIKH</span><b className="font-cond text-[clamp(80px,22vw,300px)] font-black leading-[.8]">{n}</b></motion.div>}</AnimatePresence>;
 }
 // Accent-coloured wipe that retracts on every route change
