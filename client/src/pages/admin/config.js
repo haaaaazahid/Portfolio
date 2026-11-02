@@ -1,11 +1,13 @@
 // One entry per content section. The generic Manager renders list + form from this.
+// Mirrors server/src/utils/limits.js. The server stays the authority; these only give instant feedback.
+const P = { title: 150, status: 80, category: 60, description: 1000, details: 10000, tag: 60, tags: 30, url: 2048 };
 const world = { name: "world", label: "Belongs to", type: "select", options: [["coach", "Coach"], ["developer", "Developer"]] };
 const order = { name: "order", label: "Order (lowest first)", type: "number" };
 export const SECTIONS = {
   projects: { title: "Projects", api: "projects", icon: "FolderKanban", blank: { published: true, category: "Full-stack" }, label: (i) => i.title, sub: (i) => [i.category, i.status, i.published ? "" : "Draft"].filter(Boolean).join(" · "), thumb: (i) => i.cover,
-    fields: [{ name: "title", label: "Title", required: true }, { name: "status", label: "Status", help: "e.g. Live, In progress" }, { name: "category", label: "Category", help: "Used for the filter on /projects" },
-      { name: "description", label: "Short description", type: "textarea" }, { name: "details", label: "Full details (project page)", type: "textarea", rows: 6 }, { name: "tags", label: "Tech stack", type: "tags", help: "Comma separated" },
-      { name: "cover", label: "Cover image", type: "image" }, { name: "images", label: "More screenshots", type: "images" }, { name: "liveUrl", label: "Live site URL", type: "url" }, { name: "githubUrl", label: "GitHub URL", type: "url" },
+    fields: [{ name: "title", label: "Title", required: true, max: P.title }, { name: "status", label: "Status", help: "e.g. Live, In progress", max: P.status }, { name: "category", label: "Category", help: "Used for the filter on /projects", max: P.category },
+      { name: "description", label: "Short description", type: "textarea", max: P.description }, { name: "details", label: "Full details (project page)", type: "textarea", rows: 6, max: P.details }, { name: "tags", label: "Tech stack", type: "tags", help: "Comma separated", maxItems: P.tags, maxItem: P.tag },
+      { name: "cover", label: "Cover image", type: "image" }, { name: "images", label: "More screenshots", type: "images" }, { name: "liveUrl", label: "Live site URL", type: "url", max: P.url }, { name: "githubUrl", label: "GitHub URL", type: "url", max: P.url },
       { name: "featured", label: "Show on the home page", type: "checkbox" }, { name: "published", label: "Published (visible to visitors)", type: "checkbox" }, order] },
   skills: { title: "Skills", api: "skills", icon: "Wrench", blank: { world: "developer" }, label: (i) => i.name, sub: (i) => `${i.category} · ${i.world}`,
     fields: [{ name: "name", label: "Skill", required: true }, { name: "category", label: "Group", required: true, help: "e.g. Frontend, Backend, Specialities" }, world, { name: "level", label: "Level 0–100 (optional)", type: "number" }, order] },

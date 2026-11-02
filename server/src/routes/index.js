@@ -16,7 +16,8 @@ const resource = (path, Model, schema, opts) => {
   router.get(path, optionalAuth, h.list);
   router.get(path + "/:id", optionalAuth, h.get);
   router.post(path, protect, validate(schema), h.create);
-  router.put(path + "/:id", protect, validate(schema), h.update);
+  // PUT is a partial update: omitted fields keep their stored value instead of being reset to defaults ("" / []).
+  router.put(path + "/:id", protect, validate(schema.partial()), h.update);
   router.delete(path + "/:id", protect, h.remove);
 };
 resource("/projects", M.Project, S.project, { publicFilter: { published: true }, sort: { order: 1, createdAt: -1 } });

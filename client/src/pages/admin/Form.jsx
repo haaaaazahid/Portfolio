@@ -16,6 +16,15 @@ const fromDraft = (fields, d) => fields.reduce((o, f) => { let v = get(d, f.name
   else if (f.type === "number") v = v === "" ? undefined : Number(v);
   return v === undefined ? o : set(o, f.name, v); }, {});
 
+// Instant feedback with the same limits as the server; returns { fieldName: message }.
+const check = (fields, d) => fields.reduce((e, f) => { const v = get(d, f.name);
+  if (f.required && f.type !== "image" && !String(v ?? "").trim()) e[f.name] = `${f.label} is required.`;
+  else if (f.max && typeof v === "string" && v.trim().length > f.max) e[f.name] = `${f.label} must be ${f.max} characters or fewer (currently ${v.trim().length}).`;
+  else if (f.type === "tags") { const t = v.split(",").map((x) => x.trim()).filter(Boolean); const long = t.find((x) => x.length > f.maxItem);
+    if (f.maxItems && t.length > f.maxItems) e[f.name] = `Add at most ${f.maxItems} technologies (you have ${t.length}).`;
+    else if (long) e[f.name] = `"${long.slice(0, 24)}…" is too long. Each technology must be ${f.maxItem} characters or fewer. Separate items with commas.`; }
+  return e; }, {});
+
 export function ImageField({ value, onChange, label }) {
   const [busy, setBusy] = useState(false); const [err, setErr] = useState("");
   const pick = async (e) => { const f = e.target.files?.[0]; e.target.value = ""; if (!f) return; setBusy(true); setErr("");
@@ -37,20 +46,31 @@ function Images({ value, onChange }) {
 }
 
 export default function Form({ fields, initial, onSubmit, onCancel, submitLabel = "Save" }) {
-  const [d, setD] = useState(() => toDraft(fields, initial || {})); const [busy, setBusy] = useState(false); const [err, setErr] = useState("");
-  const up = (n, v) => setD((x) => set(x, n, v));
-  const submit = async (e) => { e.preventDefault(); setBusy(true); setErr(""); try { await onSubmit(fromDraft(fields, d)); } catch (x) { setErr(x.message); } finally { setBusy(false); } };
+  const [d, setD] = useState(() => toDraft(fields, initial || {})); const [busy, setBusy] = useState(false); const [err, setErr] = useState(""); const [errs, setErrs] = useState({});
+  const up = (n, v) => { setD((x) => set(x, n, v)); setErrs((x) => { if (!x[n]) return x; const { [n]: _, ...rest } = x; return rest; }); };
+  const show = (found, summary) => { setErrs(found); setErr(summary); const first = fields.find((f) => found[f.name]);
+    if (first) requestAnimationFrame(() => { const el = document.getElementById("f-" + first.name); el?.scrollIntoView({ block: "center", behavior: "smooth" }); el?.focus?.({ preventScroll: true }); }); };
+  const submit = async (e) => { e.preventDefault(); setErr(""); const local = check(fields, d);
+    if (Object.keys(local).length) return show(local, "Please fix the highlighted fields.");
+    setBusy(true); setErrs({});
+    try { await onSubmit(fromDraft(fields, d)); }
+    catch (x) { // server validation: { fields: { name: [messages] } } -> show each message beside its input
+      const named = Object.fromEntries(Object.entries(x.fields || {}).filter(([k]) => fields.some((f) => f.name === k)).map(([k, m]) => [k, m.join(" ")]));
+      if (Object.keys(named).length) show(named, "Please fix the highlighted fields."); else setErr(x.message); }
+    finally { setBusy(false); } };
   return <form onSubmit={submit} className="grid gap-5">
     {fields.map((f) => { const id = "f-" + f.name; const v = get(d, f.name);
+      const bad = errs[f.name];
       return <div key={f.name}>
         {f.type === "checkbox" ? <label className="flex items-center gap-2 font-medium"><input type="checkbox" className="h-5 w-5" style={{ accentColor: "var(--acc)" }} checked={v} onChange={(e) => up(f.name, e.target.checked)} />{f.label}</label> : <>
           <label htmlFor={id} className="mb-1 block text-sm font-bold">{f.label}{f.required && " *"}</label>
           {f.type === "image" ? <ImageField value={v} onChange={(x) => up(f.name, x)} label={f.label} />
             : f.type === "images" ? <Images value={v} onChange={(x) => up(f.name, x)} />
             : f.type === "select" ? <select id={id} className="field" value={v} onChange={(e) => up(f.name, e.target.value)}>{f.options.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
-            : ["textarea", "lines", "pairs"].includes(f.type) ? <textarea id={id} className="field" rows={f.rows || (f.type === "textarea" ? 3 : 4)} value={v} onChange={(e) => up(f.name, e.target.value)} />
-            : <input id={id} className="field" type={f.type === "number" ? "number" : f.type === "url" ? "url" : "text"} required={f.required && f.type !== "image"} value={v} onChange={(e) => up(f.name, e.target.value)} placeholder={f.type === "url" ? "https://" : ""} />}
+            : ["textarea", "lines", "pairs"].includes(f.type) ? <textarea id={id} className="field" aria-invalid={!!bad} aria-describedby={bad ? id + "-err" : undefined} rows={f.rows || (f.type === "textarea" ? 3 : 4)} value={v} onChange={(e) => up(f.name, e.target.value)} />
+            : <input id={id} className="field" aria-invalid={!!bad} aria-describedby={bad ? id + "-err" : undefined} type={f.type === "number" ? "number" : f.type === "url" ? "url" : "text"} required={f.required && f.type !== "image"} value={v} onChange={(e) => up(f.name, e.target.value)} placeholder={f.type === "url" ? "https://" : ""} />}
         </>}
+        {bad && <p id={id + "-err"} role="alert" className="mt-1 text-sm font-bold text-red-600">{bad}</p>}
         {f.help && <p className="mt-1 text-xs" style={{ color: "var(--mut)" }}>{f.help}</p>}
       </div>; })}
     {err && <p role="alert" className="text-sm font-bold text-red-600">{err}</p>}

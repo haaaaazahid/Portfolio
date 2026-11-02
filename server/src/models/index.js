@@ -2,15 +2,17 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 const opts = { timestamps: true };
 const str = { type: String, trim: true, default: "" };
+const L = require("../utils/limits").project;
 const world = { type: String, enum: ["coach", "developer"], default: "developer" };
 
 const User = new Schema({ email: { type: String, unique: true, lowercase: true, required: true }, password: { type: String, required: true, select: false } }, opts);
 User.methods.verify = function (p) { return bcrypt.compare(p, this.password); };
 User.statics.hash = (p) => bcrypt.hash(p, 12);
 
+const lim = (n) => ({ type: String, trim: true, default: "", maxlength: n });
 const Project = new Schema({
-  title: { type: String, required: true, trim: true }, status: str, category: { type: String, default: "Web" },
-  description: str, details: str, tags: [String], cover: str, images: [String], liveUrl: str, githubUrl: str,
+  title: { type: String, required: true, trim: true, maxlength: L.title }, status: lim(L.status), category: { type: String, trim: true, default: "Web", maxlength: L.category },
+  description: lim(L.description), details: lim(L.details), tags: [String], cover: lim(L.image), images: [String], liveUrl: lim(L.url), githubUrl: lim(L.url),
   featured: { type: Boolean, default: false }, published: { type: Boolean, default: true }, order: { type: Number, default: 0 },
 }, opts);
 const Skill = new Schema({ name: { type: String, required: true }, category: { type: String, required: true }, world, level: { type: Number, min: 0, max: 100 }, order: { type: Number, default: 0 } }, opts);

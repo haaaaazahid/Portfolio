@@ -20,7 +20,8 @@ async function request(path, { method = "GET", body, form } = {}) {
     : "The API returned a web page instead of data. Check VITE_API_URL and that the server is running.");
   if (!res.ok) {
     if (res.status === 401 && t) { setToken(""); window.dispatchEvent(new Event("auth:expired")); }
-    throw new Error(json.error || "Request failed.");
+    const e = new Error(json.error || "Request failed."); e.status = res.status; e.fields = json.fields; // { fieldName: [messages] } on validation errors
+    throw e;
   }
   return json.data;
 }
