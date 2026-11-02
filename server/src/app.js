@@ -3,7 +3,11 @@ const cfg = require("./config/env"), routes = require("./routes"), { notFound, e
 const app = express();
 app.set("trust proxy", 1); // correct client IPs for rate limiting behind Render/Railway/Nginx
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
-app.use(cors({ origin: cfg.clientUrl.split(","), credentials: false }));
+// Allowed sites come from CLIENT_URL (comma separated). Trailing slashes and spaces are ignored, so
+// "https://site.vercel.app/" and "https://site.vercel.app" both work.
+const allowed = cfg.clientUrl.split(",").map((o) => o.trim().replace(/\/+$/, "")).filter(Boolean);
+console.log("CORS allowed origins:", allowed.join(", "));
+app.use(cors({ origin: (origin, cb) => cb(null, !origin || allowed.includes(origin)), credentials: false }));
 app.use(compression());
 app.use(express.json({ limit: "50kb" }));
 app.use("/uploads", express.static(DIR, { maxAge: "7d" }));
