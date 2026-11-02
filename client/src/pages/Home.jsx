@@ -22,22 +22,19 @@ export default function Home() {
   return (
     <div>
       <Helmet><meta name="description" content="Coach and full-stack developer. Two worlds, one identity." /></Helmet>
-      <div className="flex min-h-[100svh] flex-col">
-        <div className="bg-coal px-[22px] pb-7 pt-[84px] text-center text-chalk md:px-8 md:pb-9 md:pt-[96px]">
-          <h1 className="font-cond text-[clamp(34px,7vw,96px)] font-black uppercase leading-[.92]">MOHD ZAHID SHAIKH</h1>
-          <p className="mt-2 text-[15px] opacity-80">{p?.tagline || "Two worlds. One identity."} · Mumbai, India</p></div>
-        <div className="flex flex-1 flex-col md:flex-row">
+      <div className="relative flex min-h-[100svh] flex-col md:flex-row">
+        <div className="pointer-events-none z-[5] w-full bg-coal px-[22px] pt-[90px] text-chalk md:absolute md:left-1/2 md:top-1/2 md:w-[90%] md:-translate-x-1/2 md:-translate-y-1/2 md:bg-transparent md:p-0 md:text-center md:text-white md:mix-blend-difference">
+          <b className="block font-cond text-[clamp(28px,5vw,64px)] font-black leading-[.95]">MOHD ZAHID SHAIKH</b>{p?.tagline || "Two worlds. One identity."}</div>
         {doors.map((x) => (
           <motion.div key={x.i} animate={{ flexGrow: grow(x.i) }} transition={{ duration: 0.7, ease }} style={{ flexBasis: 0 }} className={`${x.cls} min-w-0 flex-none md:flex-auto`}
             onMouseEnter={() => setHover(x.i)} onMouseLeave={() => setHover(0)} onFocus={() => setHover(x.i)} onBlur={() => setHover(0)}>
-            <Link to={x.to} className="flex min-h-[50svh] h-full flex-col justify-end px-5 pb-9 pt-10 sm:px-8 md:pb-12 2xl:px-14 2xl:pb-16">
-              <h2 className={`${x.hc} text-[clamp(48px,8vw,170px)] leading-[.85]`}>{x.h.split(" ")[0]}<br />{x.h.split(" ")[1]}</h2>
+            <Link to={x.to} className="flex min-h-[50svh] h-full flex-col justify-end px-5 pb-9 pt-24 sm:px-8 md:pb-12 2xl:px-14 2xl:pb-16">
+              <h2 className={`${x.hc} text-[clamp(54px,9vw,190px)] leading-[.85]`}>{x.h.split(" ")[0]}<br />{x.h.split(" ")[1]}</h2>
               <p className="mt-4 max-w-[30ch]">{x.d}</p>
               <span className={`mt-5 self-start border-b-2 pb-[3px] font-bold ${x.bd}`}>{x.go}</span>
             </Link>
           </motion.div>
         ))}
-        </div>
       </div>
       <div className="wrap sec">
         <Reveal><p className="max-w-[24ch] font-serif text-[clamp(28px,4vw,48px)] leading-[1.15]">{p?.bio}</p></Reveal>

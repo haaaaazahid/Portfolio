@@ -54,17 +54,12 @@ export function Preloader({ onDone }) {
     let i = 0, to; const t = setInterval(() => { i += rm ? 100 : 4; setN(Math.min(i, 100)); if (i >= 100) { clearInterval(t); to = setTimeout(() => setShow(false), 250); } }, 30);
     return () => { clearInterval(t); clearTimeout(to); };
   }, [rm]);
-  return <AnimatePresence onExitComplete={onDone}>{show && <motion.div role="status" aria-label="Loading" className="fixed inset-0 z-[90] flex flex-col items-center justify-center gap-5 p-7 text-center" style={{ background: "#16130F", color: "#F2EEE8" }} exit={{ y: "-100%" }} transition={{ duration: 0.9, ease }}>
-    <b className="font-cond text-[clamp(96px,24vw,300px)] font-black leading-[.8] tabular-nums">{n}</b><span className="text-sm tracking-[.3em]">MOHD ZAHID SHAIKH</span></motion.div>}</AnimatePresence>;
+  return <AnimatePresence onExitComplete={onDone}>{show && <motion.div role="status" aria-label="Loading" className="fixed inset-0 z-[90] flex items-end justify-between p-7" style={{ background: "#16130F", color: "#F2EEE8" }} exit={{ y: "-100%" }} transition={{ duration: 0.9, ease }}>
+    <span className="max-w-[18ch] text-sm">MOHD ZAHID SHAIKH</span><b className="font-cond text-[clamp(80px,22vw,300px)] font-black leading-[.8]">{n}</b></motion.div>}</AnimatePresence>;
 }
 // Accent-coloured wipe that retracts on every route change
 export function Curtain({ k, delay = 0 }) {
-  const rm = useReducedMotion(); const prev = useRef(k); const moved = useRef(false);
-  if (prev.current !== k) { moved.current = true; prev.current = k; }
-  if (rm) return null;
-  if (!moved.current) // first load: just reveal after the preloader
-    return <motion.div key={k} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[45] origin-bottom" style={{ background: "var(--acc)" }} initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} transition={{ duration: 0.8, ease, delay }} />;
-  // route change: cover from below, hold while the page swaps, then lift away
-  return <motion.div key={k} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[45]" style={{ background: "var(--acc)" }} initial={{ y: "100%" }} animate={{ y: ["100%", "0%", "0%", "-100%"] }} transition={{ duration: 1.1, times: [0, 0.32, 0.5, 1], ease: "easeInOut" }} />;
+  const rm = useReducedMotion(); if (rm) return null;
+  return <motion.div key={k} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[45] origin-bottom" style={{ background: "var(--acc)" }} initial={{ scaleY: 1 }} animate={{ scaleY: 0 }} transition={{ duration: 0.8, ease, delay }} />;
 }
 export const Loading = () => <p role="status" className="note">Loading…</p>;
