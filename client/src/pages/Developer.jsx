@@ -1,24 +1,20 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { api } from "../services/api";
 import useApi from "../hooks/useApi";
 import ProjectCard from "../components/ProjectCard";
-import { Words, Reveal, Magnetic, Marquee, Loading } from "../components/ui";
+import PageShell, { Section } from "../components/PageShell";
+import { Reveal, Magnetic, Marquee, Loading } from "../components/ui";
 
 export default function Developer() {
-  const pr = useApi(() => api.projects.list(), []); const sk = useApi(() => api.skills.list(), []); const ed = useApi(() => api.education.list(), []);
-  const groups = (sk.data || []).filter((s) => s.world === "developer").reduce((a, s) => ((a[s.category] ||= []).push(s), a), {});
-  return <div>
-    <Helmet><title>Developer</title><meta name="description" content="Full-stack developer building digital products with React and Node.js." /></Helmet>
-    <div className="wrap pb-20 pt-40"><Words text="I build digital experiences and products." className="h-hero max-w-[14ch]" /><Reveal d={0.5}><p className="lead mt-6">Software development, creative problem-solving and the process of turning ideas into functional digital products.</p></Reveal></div>
-    <Marquee items={["React", "Node.js", "JavaScript", "TypeScript", "Supabase", "MySQL", "Framer Motion"]} />
-    <div className="wrap">
-      <section className="sec"><h2 className="h-sec">Background</h2>{ed.loading ? <Loading /> : (ed.data || []).map((e) => <Reveal key={e._id}><p className="max-w-[60ch]">{e.degree}, {e.institution}.{e.end && ` Graduating ${e.end}.`}{e.grade && ` ${e.grade}.`} Interests: full-stack, frontend and backend development, databases and AI-assisted development.</p></Reveal>)}</section>
-      <section className="sec"><h2 className="h-sec">Skills</h2>{sk.loading ? <Loading /> : Object.entries(groups).map(([k, v]) => <Reveal key={k}><p><b>{k}</b><br />{v.map((s) => <span className="tag" key={s._id}>{s.name}</span>)}</p></Reveal>)}</section>
-      <section className="sec"><h2 className="h-sec">Selected projects</h2>
-        {pr.loading ? <Loading /> : pr.error ? <span role="alert" className="note">{pr.error}</span> : !pr.data.length ? <span className="note">No published projects yet.</span>
-          : <div className="grid gap-6 md:grid-cols-2 2xl:grid-cols-3">{pr.data.map((p, i) => <ProjectCard key={p._id} p={p} i={i} />)}</div>}</section>
-      <section className="sec"><h2 className="h-sec">Beyond code. Building ideas.</h2><p className="mb-6">I’m the founder of Zhub, part of my developer work.</p><Magnetic><Link to="/zhub" className="btn">Read about Zhub</Link></Magnetic></section>
-    </div>
-  </div>;
+  const pr = useApi(() => api.projects.list(), []); const ed = useApi(() => api.education.list(), []); const p = useApi(() => api.profile.get(), []);
+  const shown = (pr.data || []).filter((x) => x.category !== "Research").slice(0, 4);
+  return <PageShell world="dev" title="I build digital experiences and products." lead={p.data?.devIntro || "Software development, creative problem-solving and the process of turning ideas into functional digital products."} desc="Full-stack developer building web products with React and Node.js.">
+    <div className="-mx-5 sm:-mx-8 lg:-mx-10"><Marquee items={["React", "Node.js", "JavaScript", "TypeScript", "Supabase", "MySQL", "Framer Motion"]} /></div>
+    <Section title="Background">{ed.loading ? <Loading /> : (ed.data || []).map((e) => <Reveal key={e._id}><p className="max-w-[60ch]">{e.degree}, {e.institution}.{e.end && ` Graduating ${e.end}.`}{e.grade && ` ${e.grade}.`} Interests: full-stack, frontend and backend development, databases, product development and AI-assisted development.</p></Reveal>)}
+      <Link to="/developer/skills" className="mt-4 inline-block font-bold underline">Technical skills and the projects behind them</Link></Section>
+    <Section title="Selected projects">
+      {pr.loading ? <Loading /> : pr.error ? <span role="alert" className="note">{pr.error}</span> : !shown.length ? <span className="note">No published projects yet.</span> : <div className="grid gap-6 md:grid-cols-2 2xl:gap-10">{shown.map((x, i) => <ProjectCard key={x._id} p={x} i={i} />)}</div>}
+      <div className="mt-8"><Magnetic><Link to="/developer/projects" className="btn">Open the full project archive</Link></Magnetic></div></Section>
+    <Section title="Beyond code. Building ideas."><p className="mb-6">I am the founder of Zhub, part of my developer work.</p><Magnetic><Link to="/developer/zhub" className="btn">Read about Zhub</Link></Magnetic></Section>
+  </PageShell>;
 }

@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { api } from "../services/api";
 import { Words, Magnetic, Reveal } from "../components/ui";
 import useApi from "../hooks/useApi";
 
-const CATS = ["Software development", "Project collaboration", "Coaching", "Business / Zhub", "Other"];
+const CATS = ["Software development employment", "Freelance and technical collaboration", "Coaching", "Business and product collaboration", "Other"];
+const match = (t) => CATS.find((c) => c.toLowerCase().startsWith((t || "").toLowerCase())) || CATS[0];
 const input = "field";
 export default function Contact() {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm();
+  const [sp] = useSearchParams();
+  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm({ defaultValues: { category: match(sp.get("topic")) } });
   const { data: prof } = useApi(() => api.profile.get(), []);
   const [status, setStatus] = useState({ ok: false, msg: "" });
   const onSubmit = async (v) => {
@@ -21,7 +24,7 @@ export default function Contact() {
     <div className="wrap pb-16 pt-40">
       <Helmet><title>Contact</title></Helmet>
       <Words text="Let’s talk." className="h-hero" />
-      <Reveal d={0.4}><p className="lead mb-8 mt-6">Software development, collaboration, coaching, business and Zhub.</p>
+      <Reveal d={0.4}><p className="lead mb-8 mt-6">Choose the kind of enquiry below so it reaches the right conversation: employment, freelance work, coaching or business collaboration.</p>
         <div className="mb-10">{prof?.email && <p><a className="font-bold underline" href={`mailto:${prof.email}`}>{prof.email}</a></p>}
           {(prof?.socials || []).filter((x) => x.url).map((x) => <a key={x.label} className="tag" href={x.url} target="_blank" rel="noopener noreferrer">{x.label}</a>)}
           {prof && !prof.email && !prof.socials?.length && <span className="note">Email and social links to be added in the admin.</span>}</div></Reveal>

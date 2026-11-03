@@ -4,22 +4,20 @@ import { api } from "../services/api";
 import { ease } from "./ui";
 
 const NAME = ["MOHD", "ZAHID", "SHAIKH"];
-// Pull-up: arms morph between hang and chin-over-bar while the body group travels 40px.
-const HANG = { l: "M75 40 Q80 62 85 86", r: "M125 40 Q120 62 115 86" };
-const UP = { l: "M75 40 Q50 60 85 46", r: "M125 40 Q150 60 115 46" };
+// Coach mark: a ring clears a bar and returns (one rep). Purely geometric - no human figure, so nothing can deform.
 const rep = { duration: 2, ease: "easeInOut", repeat: Infinity, repeatDelay: 0.25 };
-
 function Athlete() {
-  return <svg viewBox="0 0 200 260" className="h-auto max-h-[42svh] w-[68%] max-w-[260px]" fill="none" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <g stroke="var(--da-fg)"><line x1="40" y1="40" x2="40" y2="244" strokeWidth="3" opacity=".3" /><line x1="160" y1="40" x2="160" y2="244" strokeWidth="3" opacity=".3" /><line x1="34" y1="40" x2="166" y2="40" strokeWidth="7" /></g>
-    <ellipse cx="100" cy="246" rx="64" ry="5" stroke="var(--da-fg)" strokeWidth="2" opacity=".3" />
-    <g stroke="var(--da-acc)">
-      <motion.path initial={{ d: HANG.l }} animate={{ d: [HANG.l, UP.l, HANG.l] }} transition={rep} />
-      <motion.path initial={{ d: HANG.r }} animate={{ d: [HANG.r, UP.r, HANG.r] }} transition={rep} />
-      <motion.g animate={{ y: [0, -40, 0] }} transition={rep}>
-        <circle cx="100" cy="68" r="12" /><path d="M85 86 L115 86 M100 88 V150 M100 150 L92 206 M100 150 L108 206" />
-      </motion.g>
+  return <svg viewBox="0 0 200 260" className="h-auto max-h-[42svh] w-[62%] max-w-[240px]" fill="none" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <g stroke="var(--da-fg)">
+      <line x1="100" y1="30" x2="100" y2="236" strokeWidth="2" strokeDasharray="2 9" opacity=".35" />
+      <line x1="30" y1="76" x2="170" y2="76" strokeWidth="7" />
+      <line x1="30" y1="76" x2="30" y2="236" strokeWidth="3" opacity=".3" /><line x1="170" y1="76" x2="170" y2="236" strokeWidth="3" opacity=".3" />
+      <g strokeWidth="3" opacity=".35"><line x1="88" y1="236" x2="112" y2="236" /><line x1="92" y1="156" x2="108" y2="156" /></g>
     </g>
+    <motion.g animate={{ y: [0, -148, 0] }} transition={rep}>
+      <motion.circle cx="100" cy="200" r="17" stroke="var(--da-acc)" style={{ transformBox: "fill-box", transformOrigin: "center" }} animate={{ scale: [1, 1, 1.18, 1, 1] }} transition={{ ...rep, times: [0, 0.42, 0.5, 0.58, 1] }} />
+      <circle cx="100" cy="200" r="4" fill="var(--da-acc)" stroke="none" />
+    </motion.g>
   </svg>;
 }
 const LINES = [[50, 40, 120], [64, 58, 150], [64, 76, 112], [50, 94, 138]];

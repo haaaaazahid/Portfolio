@@ -1,7 +1,7 @@
 import { NavLink, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AnimatePresence, motion } from "framer-motion";
-import { LayoutDashboard, Inbox, User, FolderKanban, Wrench, Briefcase, GraduationCap, Trophy, Award, Images, LogOut, Sun, Moon, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Inbox, User, FolderKanban, Wrench, Briefcase, GraduationCap, Trophy, Award, Images, LogOut, Sun, Moon, ExternalLink, FileText, Dumbbell, Route as RouteIcon, ClipboardList } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { ease } from "../components/ui";
@@ -12,7 +12,7 @@ import Dashboard from "./admin/Dashboard";
 import Messages from "./admin/Messages";
 import Profile from "./admin/Profile";
 import Manager from "./admin/Manager";
-const ICONS = { FolderKanban, Wrench, Briefcase, GraduationCap, Trophy, Award, Images };
+const ICONS = { FolderKanban, Wrench, Briefcase, GraduationCap, Trophy, Award, Images, FileText, Dumbbell, Route: RouteIcon, ClipboardList };
 const NAV = [["/admin", "Dashboard", LayoutDashboard, true], ["/admin/messages", "Messages", Inbox], ["/admin/profile", "Site content", User], ...Object.entries(SECTIONS).map(([k, s]) => [`/admin/${k}`, s.title, ICONS[s.icon]])];
 
 function Shell() {

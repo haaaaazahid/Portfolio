@@ -20,8 +20,7 @@ async function request(path, { method = "GET", body, form } = {}) {
     : "The API returned a web page instead of data. Check VITE_API_URL and that the server is running.");
   if (!res.ok) {
     if (res.status === 401 && t) { setToken(""); window.dispatchEvent(new Event("auth:expired")); }
-    const e = new Error(json.error || "Request failed."); e.status = res.status; e.fields = json.fields; // { fieldName: [messages] } on validation errors
-    throw e;
+    throw new Error(json.error || "Request failed.");
   }
   return json.data;
 }
@@ -36,5 +35,5 @@ export const api = {
   upload: (file) => { const f = new FormData(); f.set("image", file); return request("/uploads", { method: "POST", form: f }); },
   stats: () => request("/admin/stats"),
   messages: { list: () => request("/admin/messages"), read: (id) => request(`/admin/messages/${id}/read`, { method: "PATCH" }), remove: (id) => request(`/admin/messages/${id}`, { method: "DELETE" }) },
-  projects: crud("/projects"), skills: crud("/skills"), experience: crud("/experience"), education: crud("/education"), achievements: crud("/achievements"), certificates: crud("/certificates"), gallery: crud("/gallery"),
+  projects: crud("/projects"), skills: crud("/skills"), experience: crud("/experience"), education: crud("/education"), achievements: crud("/achievements"), certificates: crud("/certificates"), pages: crud("/pages"), movements: crud("/movements"), programmes: crud("/programmes"), milestones: crud("/milestones"), gallery: crud("/gallery"),
 };

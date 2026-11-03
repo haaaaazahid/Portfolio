@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -8,12 +8,14 @@ import Footer from "./components/Footer";
 import { Cursor, ScrollProgress, Curtain, Loading } from "./components/ui";
 import Intro from "./components/Intro";
 const page = (f) => lazy(f);
-const Home = page(() => import("./pages/Home")), About = page(() => import("./pages/About")), Projects = page(() => import("./pages/Projects")),
-  ProjectDetail = page(() => import("./pages/ProjectDetail")), Experience = page(() => import("./pages/Experience")), Gallery = page(() => import("./pages/Gallery")),
-  Coach = page(() => import("./pages/Coach")), Developer = page(() => import("./pages/Developer")), Zhub = page(() => import("./pages/Zhub")), Admin = page(() => import("./pages/Admin")), NotFound = page(() => import("./pages/NotFound")), Contact = page(() => import("./pages/Contact"));
+const Home = page(() => import("./pages/Home")), Journey = page(() => import("./pages/Journey")), Projects = page(() => import("./pages/Projects")), ProjectCase = page(() => import("./pages/ProjectCase")),
+  Experience = page(() => import("./pages/Experience")), Gallery = page(() => import("./pages/Gallery")), Coach = page(() => import("./pages/Coach")), CoachAchievements = page(() => import("./pages/CoachAchievements")),
+  Disciplines = page(() => import("./pages/Disciplines")), MovementLibrary = page(() => import("./pages/MovementLibrary")), Programmes = page(() => import("./pages/Programmes")), Athletes = page(() => import("./pages/Athletes")),
+  PageView = page(() => import("./pages/PageView")), Developer = page(() => import("./pages/Developer")), DevSkills = page(() => import("./pages/DevSkills")), Contact = page(() => import("./pages/Contact")),
+  Admin = page(() => import("./pages/Admin")), NotFound = page(() => import("./pages/NotFound"));
 
 // Developer-side pages use the signal-blue accent, coach-side pages the ember accent
-const worldFor = (p) => (/^\/(developer|zhub|contact|projects|experience|admin)/.test(p) ? "developer" : "coach");
+const worldFor = (p) => (/^\/(developer|contact|journey|admin)/.test(p) ? "developer" : "coach");
 
 export default function App() {
   const location = useLocation(); const admin = location.pathname.startsWith("/admin"); const [needIntro] = useState(() => { try { return !admin && sessionStorage.getItem("intro") !== "1"; } catch { return !admin; } });
@@ -32,9 +34,17 @@ export default function App() {
           <motion.div key={k} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
             <Suspense fallback={<div className="wrap pt-40"><Loading /></div>}>
               <Routes location={location}>
-                <Route path="/" element={<Home />} /><Route path="/about" element={<About />} /><Route path="/projects" element={<Projects />} /><Route path="/projects/:id" element={<ProjectDetail />} />
-                <Route path="/experience" element={<Experience />} /><Route path="/gallery" element={<Gallery />} /><Route path="/coach" element={<Coach />} />
-                <Route path="/developer" element={<Developer />} /><Route path="/zhub" element={<Zhub />} /><Route path="/contact" element={<Contact />} /><Route path="/admin/*" element={<Admin />} /><Route path="*" element={<NotFound />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/coach" element={<Coach />} /><Route path="/coach/experience" element={<Experience />} /><Route path="/coach/mci" element={<PageView slug="mci" />} /><Route path="/coach/twz" element={<PageView slug="twz" />} />
+                <Route path="/coach/disciplines" element={<Disciplines />} /><Route path="/coach/movement-library" element={<MovementLibrary />} /><Route path="/coach/programmes" element={<Programmes />} />
+                <Route path="/coach/athletes" element={<Athletes />} /><Route path="/coach/athletes/:slug" element={<PageView />} /><Route path="/coach/achievements" element={<CoachAchievements />} /><Route path="/gallery" element={<Gallery />} />
+                <Route path="/developer" element={<Developer />} /><Route path="/developer/projects" element={<Projects />} /><Route path="/developer/projects/:slug" element={<ProjectCase />} />
+                <Route path="/developer/skills" element={<DevSkills />} /><Route path="/developer/zhub" element={<ProjectCase slug="zhub" />} />
+                <Route path="/journey" element={<Journey />} /><Route path="/journey/research/:slug" element={<ProjectCase />} />
+                <Route path="/contact" element={<Contact />} /><Route path="/admin/*" element={<Admin />} />
+                {/* old addresses from earlier versions keep working */}
+                <Route path="/about" element={<Navigate to="/journey" replace />} /><Route path="/projects" element={<Navigate to="/developer/projects" replace />} /><Route path="/zhub" element={<Navigate to="/developer/zhub" replace />} /><Route path="/experience" element={<Navigate to="/coach/experience" replace />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </motion.div>

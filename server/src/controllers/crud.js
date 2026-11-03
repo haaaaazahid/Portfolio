@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const { wrap } = require("../middleware");
 // Generic CRUD: public list (optionally filtered), admin create/update/delete
 module.exports = (Model, { sort = { order: 1, createdAt: -1 }, publicFilter = {} } = {}) => ({
@@ -6,7 +7,8 @@ module.exports = (Model, { sort = { order: 1, createdAt: -1 }, publicFilter = {}
     res.json({ success: true, data: await Model.find(filter).sort(sort).lean() });
   }),
   get: wrap(async (req, res) => {
-    const d = await Model.findOne({ _id: req.params.id, ...(req.admin ? {} : publicFilter) }).lean();
+    const key = isValidObjectId(req.params.id) ? { _id: req.params.id } : { slug: req.params.id }; // detail pages use slugs
+    const d = await Model.findOne({ ...key, ...(req.admin ? {} : publicFilter) }).lean();
     d ? res.json({ success: true, data: d }) : res.status(404).json({ success: false, error: "Not found." });
   }),
   create: wrap(async (req, res) => res.status(201).json({ success: true, data: await Model.create(req.body) })),

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Plus, Pencil, Trash2, X } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Copy } from "lucide-react";
+import { CropImg } from "../../components/ZoomImg";
 import { api } from "../../services/api";
 import useApi from "../../hooks/useApi";
 import Form from "./Form";
@@ -13,6 +14,7 @@ export default function Manager({ cfg }) {
   useEffect(() => { setEdit(null); setMsg(""); }, [cfg.api]);
   useEffect(() => { if (!edit) return; const k = (e) => e.key === "Escape" && setEdit(null); addEventListener("keydown", k); return () => removeEventListener("keydown", k); }, [edit]);
   const save = async (v) => { edit._id ? await api[cfg.api].update(edit._id, v) : await api[cfg.api].create(v); setEdit(null); setMsg("Saved."); reload(); };
+  const dup = async (i) => { const { _id, createdAt, updatedAt, __v, slug, ...rest } = i; const nf = cfg.name; try { await api[cfg.api].create({ ...rest, [nf]: `${rest[nf] || "Copy"} (copy)`, ...("published" in rest ? { published: false } : {}), ...(cfg.api === "programmes" ? { status: "Draft" } : {}) }); setMsg("Duplicated as a draft."); reload(); } catch (e) { setMsg(e.message); } };
   const del = async (i) => { if (!confirm(`Delete “${cfg.label(i)}”? This cannot be undone.`)) return; try { await api[cfg.api].remove(i._id); setMsg("Deleted."); reload(); } catch (e) { setMsg(e.message); } };
   return <div>
     <div className="mb-6 flex flex-wrap items-center justify-between gap-3"><h1 className="font-serif text-4xl sm:text-5xl">{cfg.title}</h1>
@@ -22,8 +24,9 @@ export default function Manager({ cfg }) {
       ? <div className="grid place-items-center gap-3 border border-dashed p-12 text-center" style={{ borderColor: "var(--line)", color: "var(--mut)" }}>Nothing here yet.<button className="btn" onClick={() => setEdit({ ...cfg.blank })}>Add the first one</button></div>
       : <ul className="grid gap-3"><AnimatePresence initial={false}>{data.map((i, n) => <motion.li layout key={i._id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, x: -30 }} transition={{ duration: 0.4, ease, delay: Math.min(n, 8) * 0.03 }}
         className="flex items-center gap-4 border p-3" style={{ borderColor: "var(--line)", background: "var(--card)" }}>
-        {cfg.thumb && <div className="h-14 w-20 shrink-0 overflow-hidden border border-dashed" style={{ borderColor: "var(--line)" }}>{cfg.thumb(i) && <img src={cfg.thumb(i)} alt="" loading="lazy" className="h-full w-full object-cover" />}</div>}
+        {cfg.thumb && <div className="h-14 w-20 shrink-0 overflow-hidden border border-dashed" style={{ borderColor: "var(--line)" }}>{cfg.thumb(i) && <CropImg src={cfg.thumb(i)} hover={false} />}</div>}
         <div className="min-w-0 flex-1"><b className="block truncate">{cfg.label(i)}</b><span className="block truncate text-sm" style={{ color: "var(--mut)" }}>{cfg.sub(i)}</span></div>
+        {cfg.duplicate && <button aria-label={`Duplicate ${cfg.label(i)}`} title="Duplicate as draft" onClick={() => dup(i)} className="grid h-11 w-11 place-items-center rounded-full border" style={{ borderColor: "var(--line)" }}><Copy size={17} /></button>}
         <button aria-label={`Edit ${cfg.label(i)}`} onClick={() => setEdit(i)} className="grid h-11 w-11 place-items-center rounded-full border" style={{ borderColor: "var(--line)" }}><Pencil size={17} /></button>
         <button aria-label={`Delete ${cfg.label(i)}`} onClick={() => del(i)} className="grid h-11 w-11 place-items-center rounded-full border text-red-600" style={{ borderColor: "var(--line)" }}><Trash2 size={17} /></button>
       </motion.li>)}</AnimatePresence></ul>}

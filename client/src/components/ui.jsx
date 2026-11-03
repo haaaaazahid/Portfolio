@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { parse } from "../lib/img";
 import { motion, useReducedMotion, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion";
 export const ease = [0.76, 0, 0.24, 1];
 
@@ -45,7 +46,7 @@ export function Para({ src, alt = "", label, className = "" }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], rm ? [0, 0] : [-60, 60]);
   return <div ref={ref} className={`mt-9 grid aspect-[16/7] place-items-center overflow-hidden border border-dashed text-[13px] ${className}`} style={{ borderColor: "var(--line)", color: "var(--mut)" }}>
-    {src ? <motion.img src={src} alt={alt} loading="lazy" className="h-[130%] w-full object-cover" style={{ y }} /> : <motion.div style={{ y }}>{label}</motion.div>}</div>;
+    {src ? <motion.img src={parse(src).src} alt={alt} loading="lazy" className="h-[130%] w-full object-cover" style={{ y, objectPosition: `${parse(src).x}% ${parse(src).y}%` }} /> : <motion.div style={{ y }}>{label}</motion.div>}</div>;
 }
 // Accent-coloured wipe that retracts on every route change
 export function Curtain({ k, delay = 0, skipFirst = false }) {

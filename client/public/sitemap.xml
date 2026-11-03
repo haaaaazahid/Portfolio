@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://zahids-portfolio.vercel.app/</loc></url>
-  <url><loc>https://zahids-portfolio.vercel.app/about</loc></url>
-  <url><loc>https://zahids-portfolio.vercel.app/projects</loc></url>
-  <url><loc>https://zahids-portfolio.vercel.app/experience</loc></url>
-  <url><loc>https://zahids-portfolio.vercel.app/gallery</loc></url>
   <url><loc>https://zahids-portfolio.vercel.app/coach</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/experience</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/mci</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/twz</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/disciplines</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/movement-library</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/programmes</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/athletes</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/coach/achievements</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/gallery</loc></url>
   <url><loc>https://zahids-portfolio.vercel.app/developer</loc></url>
-  <url><loc>https://zahids-portfolio.vercel.app/zhub</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/developer/projects</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/developer/skills</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/developer/zhub</loc></url>
+  <url><loc>https://zahids-portfolio.vercel.app/journey</loc></url>
   <url><loc>https://zahids-portfolio.vercel.app/contact</loc></url>
 </urlset>

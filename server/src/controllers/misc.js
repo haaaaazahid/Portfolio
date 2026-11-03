@@ -37,8 +37,9 @@ const uploadImage = wrap(async (req, res) => {
   res.status(201).json({ success: true, data: { url: await store(req.file, req) } });
 });
 const stats = wrap(async (q, r) => {
-  const { Project, Skill, Gallery } = require("../models");
-  const [projects, skills, gallery, unread] = await Promise.all([Project.countDocuments(), Skill.countDocuments(), Gallery.countDocuments(), Message.countDocuments({ read: false })]);
-  r.json({ success: true, data: { projects, skills, gallery, unread } });
+  const M = require("../models");
+  const [projects, published, research, coaching, achievements, media, enquiries, unread] = await Promise.all([M.Project.countDocuments(), M.Project.countDocuments({ published: true }), M.Project.countDocuments({ category: /research/i }),
+    M.Experience.countDocuments({ world: "coach" }), M.Achievement.countDocuments(), M.Gallery.countDocuments(), M.Message.countDocuments(), M.Message.countDocuments({ read: false })]);
+  r.json({ success: true, data: { projects, published, drafts: projects - published, research, coaching, achievements, media, enquiries, unread } });
 });
 module.exports = { login, sendContact, messages, profile, uploadImage, stats };

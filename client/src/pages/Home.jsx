@@ -12,7 +12,7 @@ const ease = [0.76, 0, 0.24, 1];
 export default function Home() {
   const { data: p } = useApi(() => api.profile.get(), []);
   const [hover, setHover] = useState(0);
-  const pr = useApi(() => api.projects.list(), []); const feat = (pr.data || []).filter((x) => x.featured).slice(0, 2);
+  const pr = useApi(() => api.projects.list(), []); const jm = useApi(() => api.milestones.list(), []); const feat = (pr.data || []).filter((x) => x.featured).slice(0, 2);
   const rm = useReducedMotion(); const wide = useMedia("(min-width: 768px)");
   const grow = (i) => (rm || !wide || !hover ? 1 : hover === i ? 1.5 : 0.7);
   const doors = [
@@ -40,8 +40,15 @@ export default function Home() {
         <Reveal><p className="max-w-[24ch] font-serif text-[clamp(28px,4vw,48px)] leading-[1.15]">{p?.bio}</p></Reveal>
         <div className="mt-6"><Magnetic><Link to="/contact" className="btn">Get in touch</Link></Magnetic></div>
       </div>
+      {jm.data?.length > 0 && <div className="wrap sec"><h2 className="h-sec">The journey so far</h2>
+        <ol className="m-0 grid list-none gap-0 border-t p-0 sm:grid-cols-2" style={{ borderColor: "var(--line)" }}>{jm.data.slice(0, 6).map((m, i) => <Reveal key={m._id} d={i * 0.05}><li className="border-b py-4 pr-4" style={{ borderColor: "var(--line)" }}>
+          <span className="text-xs font-bold uppercase tracking-widest" style={{ color: "var(--acc)" }}>{[m.category, m.date].filter(Boolean).join(" · ")}</span><p className="text-lg font-bold">{m.title}</p></li></Reveal>)}</ol>
+        <Link to="/journey" className="mt-6 inline-block font-bold underline">See the full journey</Link></div>}
       {feat.length > 0 && <div className="wrap sec"><h2 className="h-sec">Featured work</h2><div className="grid gap-6 md:grid-cols-2 2xl:gap-10">{feat.map((x, i) => <ProjectCard key={x._id} p={x} i={i} />)}</div>
-        <Link to="/projects" className="mt-6 inline-block font-bold underline">All projects</Link></div>}
+        <Link to="/developer/projects" className="mt-6 inline-block font-bold underline">All projects</Link></div>}
+      <div className="wrap sec"><h2 className="h-sec">Work with me</h2>
+        <div className="grid gap-0 border-t sm:grid-cols-2 lg:grid-cols-4" style={{ borderColor: "var(--line)" }}>{[["Software development employment", "Software roles"], ["Freelance and technical collaboration", "Freelance and technical work"], ["Coaching", "Coaching"], ["Business and product collaboration", "Business and products"]].map(([t, l], i) => <Reveal key={t} d={i * 0.05}>
+          <Link to={`/contact?topic=${encodeURIComponent(t)}`} className="block h-full border-b py-6 pr-5 transition-[padding] duration-300 hover:pl-3" style={{ borderColor: "var(--line)" }}><b className="text-lg">{l}</b><span className="mt-1 block text-sm underline">Start an enquiry</span></Link></Reveal>)}</div></div>
     </div>
   );
 }
